@@ -63,7 +63,7 @@
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #f8f8ff;
+  --bs-body-color: #212529;
   --bs-body-bg: #fff;
 }
 
@@ -4089,7 +4089,7 @@ textarea.form-control-lg {
 }
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #f8f8ff;
+  color: #495057;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
@@ -11496,7 +11496,7 @@ body {
   }
   #mainNav .navbar-brand {
     padding: 0.5rem 0;
-    color: #f8f8ff;
+    color: rgba(255, 255, 255, 0.5);
   }
   #mainNav .nav-link {
     transition: none;
@@ -11545,12 +11545,11 @@ body {
 
 .masthead {
   position: relative;
-  /* test */
   width: 100%;
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background: url("../assets/img/blue-white.jpg");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("../assets/img/blue-white.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
