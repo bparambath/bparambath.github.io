@@ -63,7 +63,7 @@
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #212529;
+  --bs-body-color: #f8f8ff;
   --bs-body-bg: #fff;
 }
 
@@ -11496,7 +11496,7 @@ body {
   }
   #mainNav .navbar-brand {
     padding: 0.5rem 0;
-    color: rgba(255, 255, 255, 0.5);
+    color: #f8f8ff;
   }
   #mainNav .nav-link {
     transition: none;
