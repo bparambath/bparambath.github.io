@@ -3028,7 +3028,7 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #fff;
-  background-color: #64a19d;
+  background-color: #FAFAD2;
   border-color: #64a19d;
 }
 .btn-primary:hover {
@@ -7926,7 +7926,7 @@ textarea.form-control-lg {
 
 .text-white {
   --bs-text-opacity: 1;
-  /*color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important; */
+  color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
 
 .text-body {
@@ -7946,7 +7946,7 @@ textarea.form-control-lg {
 
 .text-white-50 {
   --bs-text-opacity: 1;
-  color: rgba(255, 255, 255, 0.5) !important;
+  /*color: rgba(255, 255, 255, 0.5) !important; */
 }
 
 .text-reset {
@@ -11549,7 +11549,7 @@ body {
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("../assets/img/pink-white.jpg");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("../assets/img/blue-white.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
