@@ -11549,7 +11549,7 @@ body {
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
-  background: linear-gradient(to bottom, rgb(62, 62, 62) 0%, rgb(241, 241, 241) 75%, #000 100%), url("../assets/img/blue-white.jpg");
+  background: img("../assets/img/blue-white.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
