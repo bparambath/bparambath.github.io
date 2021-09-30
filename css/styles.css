@@ -7929,6 +7929,11 @@ textarea.form-control-lg {
   color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
 
+.text-mainbody {
+  --bs-text-opacity: 1;
+  color: black
+}
+
 .text-body {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-body-rgb), var(--bs-text-opacity)) !important;
@@ -11594,7 +11599,7 @@ body {
 
 .about-section {
   padding-top: 10rem;
-  background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%);
+  /*background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%); */
 }
 .about-section p {
   margin-bottom: 1rem;
