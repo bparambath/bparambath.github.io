@@ -3027,13 +3027,13 @@ textarea.form-control-lg {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color:	#89CFF0;
+  color: black;
+  background-color:	#FFD700;
   border-color: #64a19d;
 }
 .btn-primary:hover {
-  color: #fff;
-  background-color: #89CFF0;
+  color: black;
+  background-color: white;
   border-color: #50817e;
 }
 .btn-check:focus + .btn-primary, .btn-primary:focus {
@@ -4089,7 +4089,7 @@ textarea.form-control-lg {
 }
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
+  color: black;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
@@ -11566,12 +11566,13 @@ body {
   line-height: 2.5rem;
   letter-spacing: 0.8rem;
   /*background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); */
-  color: #f8f8ff
+  color: black
   /*-webkit-text-fill-color: transparent; */
   -webkit-background-clip: text;
           background-clip: text;
 }
 .masthead h2, .masthead .h2 {
+  color: black;
   max-width: 20rem;
   font-size: 1rem;
 }
