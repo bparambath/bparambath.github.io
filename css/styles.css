@@ -11478,7 +11478,7 @@ body {
   outline: none;
 }
 #mainNav .navbar-brand {
-  color: #000;
+  color: black;
   font-weight: 700;
   padding: 0.9rem 0;
 }
@@ -11506,7 +11506,7 @@ body {
   #mainNav .nav-link {
     transition: none;
     padding: 2rem 1.5rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: black;
   }
   #mainNav .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
