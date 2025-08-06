@@ -50,35 +50,46 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-    // Working YouTube Video Popup
+    // Debugged YouTube Video Popup - Working Version
     document.addEventListener('DOMContentLoaded', function() {
-        const primaryButton = document.querySelector('.btn-primary');
+        const primaryButton = document.querySelector('.btn.btn-primary'); // More specific selector
         
         if (primaryButton) {
             primaryButton.addEventListener('click', function() {
+                console.log('Button clicked - timer started'); // Debug log
+                
                 setTimeout(function() {
-                    const modal = new bootstrap.Modal(document.getElementById('videoAdModal'));
+                    console.log('15 seconds elapsed - showing modal'); // Debug log
+                    
+                    const modal = new bootstrap.Modal('#videoAdModal');
                     const container = document.getElementById('youtubeContainer');
                     
-                    // Clear previous content
-                    container.innerHTML = '';
+                    // Clear container while keeping ratio
+                    container.innerHTML = '<div class="d-flex justify-content-center align-items-center h-100"><div class="spinner-border text-primary" role="status"></div></div>';
                     
-                    // Create YouTube iframe (REPLACE VIDEO_ID with your actual ID)
-                    const iframe = document.createElement('iframe');
-                    iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&playsinline=1';
-                    iframe.setAttribute('frameborder', '0');
-                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                    iframe.setAttribute('allowfullscreen', '');
-                    iframe.classList.add('w-100', 'h-100');
+                    // Create iframe after slight delay to allow modal to initialize
+                    setTimeout(function() {
+                        console.log('Creating YouTube iframe'); // Debug log
+                        
+                        // REPLACE THIS WITH YOUR YOUTUBE VIDEO ID
+                        const videoId = 'dgFITP2zSzT0'; // Example ID - replace with yours
+                        
+                        const iframe = document.createElement('iframe');
+                        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0`;
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                        iframe.setAttribute('allowfullscreen', '');
+                        iframe.classList.add('w-100', 'h-100');
+                        
+                        container.innerHTML = '';
+                        container.appendChild(iframe);
+                        
+                        console.log('Iframe created and added'); // Debug log
+                    }, 300); // Small delay to ensure modal is ready
                     
-                    container.appendChild(iframe);
                     modal.show();
                     
-                    // Unmute after user interaction (for mobile)
-                    document.getElementById('videoAdModal').addEventListener('shown.bs.modal', function() {
-                        iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-                    });
-                }, 5000); // 5 second delay
+                }, 5000); // 5 seconds delay
             });
         }
     });
