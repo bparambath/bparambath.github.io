@@ -75,7 +75,7 @@ window.addEventListener('DOMContentLoaded', event => {
         
         modalBody.appendChild(iframe);
         modal.show();
-    }, 15000);
+    }, 5000);
 });
 
 });
