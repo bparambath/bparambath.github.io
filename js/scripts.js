@@ -56,7 +56,7 @@ window.addEventListener('DOMContentLoaded', event => {
     
     if (primaryButton) {
         primaryButton.addEventListener('click', function() {
-        setTimeout(showYouTubeModal, 15000); // 15 seconds
+        setTimeout(showYouTubeModal, 5000); // 5 seconds
         });
     }
     });
@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', event => {
     
     // Create iframe after modal is shown
     const iframe = document.createElement('iframe');
-    iframe.src = 'https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=1&playsinline=1';
+    iframe.src = 'https://www.youtube.com/embed/gFITP2zSzT0?autoplay=1&mute=1&playsinline=1';
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
     iframe.setAttribute('allowfullscreen', '');
