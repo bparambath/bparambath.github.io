@@ -50,32 +50,37 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-    // Video ad after button click
-    // YouTube Video Popup - Mobile Optimized
-    document.querySelector('.btn-primary')?.addEventListener('click', () => {
-    setTimeout(() => {
-        const modal = new bootstrap.Modal('#videoAdModal');
-        const modalBody = document.querySelector('#videoAdModal .modal-body');
+    // Working YouTube Video Popup
+    document.addEventListener('DOMContentLoaded', function() {
+        const primaryButton = document.querySelector('.btn-primary');
         
-        // Clear previous iframe if any
-        modalBody.innerHTML = '';
-        
-        // Create responsive YouTube iframe
-        const iframe = document.createElement('iframe');
-        iframe.className = 'w-100 h-100';
-        iframe.src = 'https://www.youtube.com/watch?v=gFITP2zSzT0';
-        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-        iframe.setAttribute('allowfullscreen', '');
-        iframe.setAttribute('frameborder', '0');
-        
-        // Mobile-specific optimizations
-        if (/Mobi|Android/i.test(navigator.userAgent)) {
-            iframe.src += '&playsinline=1';
+        if (primaryButton) {
+            primaryButton.addEventListener('click', function() {
+                setTimeout(function() {
+                    const modal = new bootstrap.Modal(document.getElementById('videoAdModal'));
+                    const container = document.getElementById('youtubeContainer');
+                    
+                    // Clear previous content
+                    container.innerHTML = '';
+                    
+                    // Create YouTube iframe (REPLACE VIDEO_ID with your actual ID)
+                    const iframe = document.createElement('iframe');
+                    iframe.src = 'https://www.youtube.com/embed/gFITP2zSzT0?autoplay=1&mute=1&playsinline=1';
+                    iframe.setAttribute('frameborder', '0');
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                    iframe.setAttribute('allowfullscreen', '');
+                    iframe.classList.add('w-100', 'h-100');
+                    
+                    container.appendChild(iframe);
+                    modal.show();
+                    
+                    // Unmute after user interaction (for mobile)
+                    document.getElementById('videoAdModal').addEventListener('shown.bs.modal', function() {
+                        iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                    });
+                }, 5000); // 5 second delay
+            });
         }
-        
-        modalBody.appendChild(iframe);
-        modal.show();
-    }, 5000);
-});
+    });
 
 });

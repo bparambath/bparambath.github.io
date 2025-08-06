@@ -79,10 +79,21 @@
   }
 }
 
-.btn-close {
-    width: 2rem;
-    height: 2rem;
-    background-size: 60%;
+/* YouTube Modal Styling */
+#videoAdModal .modal-dialog {
+    max-width: 95%;
+    margin: 0.5rem auto;
+}
+
+#videoAdModal .btn-close {
+    width: 30px;
+    height: 30px;
+    background-size: 50%;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 100;
+    opacity: 1;
 }
 
 body {
