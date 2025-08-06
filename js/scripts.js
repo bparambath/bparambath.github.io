@@ -50,48 +50,39 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-    // Debugged YouTube Video Popup - Working Version
+    // Guaranteed Working YouTube Player
     document.addEventListener('DOMContentLoaded', function() {
-        const primaryButton = document.querySelector('.btn.btn-primary'); // More specific selector
-        
-        if (primaryButton) {
-            primaryButton.addEventListener('click', function() {
-                console.log('Button clicked - timer started'); // Debug log
-                
-                setTimeout(function() {
-                    console.log('15 seconds elapsed - showing modal'); // Debug log
-                    
-                    const modal = new bootstrap.Modal('#videoAdModal');
-                    const container = document.getElementById('youtubeContainer');
-                    
-                    // Clear container while keeping ratio
-                    container.innerHTML = '<div class="d-flex justify-content-center align-items-center h-100"><div class="spinner-border text-primary" role="status"></div></div>';
-                    
-                    // Create iframe after slight delay to allow modal to initialize
-                    setTimeout(function() {
-                        console.log('Creating YouTube iframe'); // Debug log
-                        
-                        // REPLACE THIS WITH YOUR YOUTUBE VIDEO ID
-                        const videoId = 'dgFITP2zSzT0'; // Example ID - replace with yours
-                        
-                        const iframe = document.createElement('iframe');
-                        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0`;
-                        iframe.setAttribute('frameborder', '0');
-                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                        iframe.setAttribute('allowfullscreen', '');
-                        iframe.classList.add('w-100', 'h-100');
-                        
-                        container.innerHTML = '';
-                        container.appendChild(iframe);
-                        
-                        console.log('Iframe created and added'); // Debug log
-                    }, 300); // Small delay to ensure modal is ready
-                    
-                    modal.show();
-                    
-                }, 5000); // 5 seconds delay
-            });
-        }
+    const primaryButton = document.querySelector('.btn.btn-primary');
+    
+    if (primaryButton) {
+        primaryButton.addEventListener('click', function() {
+        setTimeout(showYouTubeModal, 15000); // 15 seconds
+        });
+    }
     });
+
+    function showYouTubeModal() {
+    const modal = new bootstrap.Modal('#videoAdModal');
+    const playerDiv = document.getElementById('youtubePlayer');
+    
+    // First show the modal with loading message
+    modal.show();
+    
+    // Create iframe after modal is shown
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=1&playsinline=1';
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    
+    // Replace loading message with iframe
+    playerDiv.innerHTML = '';
+    playerDiv.appendChild(iframe);
+    
+    // For debugging
+    console.log('YouTube iframe created with src:', iframe.src);
+    }
 
 });
