@@ -55,25 +55,16 @@ window.addEventListener('DOMContentLoaded', event => {
     if (primaryButton) {
         primaryButton.addEventListener('click', function() {
             setTimeout(function() {
-                const modal = new bootstrap.Modal(document.getElementById('videoAdModal'));
-                const modalBody = document.querySelector('#videoAdModal .modal-body');
+                const videoModal = new bootstrap.Modal(document.getElementById('videoAdModal'));
+                const youtubeIframe = document.getElementById('youtubeVideo');
                 
-                // Clear any existing iframe
-                modalBody.innerHTML = '';
+                // Replace VIDEO_ID with your actual YouTube video ID
+                // Example: For https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                // The ID is dQw4w9WgXcQ
+                youtubeIframe.src = "https://www.youtube.com/watch?v=gFITP2zSzT0";
                 
-                // Create YouTube iframe (replace VIDEO_ID with your YouTube ID)
-                const iframe = document.createElement('iframe');
-                iframe.setAttribute('src', 'https://www.youtube.com/watch?v=gFITP2zSzT0');
-                iframe.setAttribute('frameborder', '0');
-                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                iframe.setAttribute('allowfullscreen', '');
-                
-                // Add iframe to modal
-                modalBody.appendChild(iframe);
-                
-                // Show modal
-                modal.show();
-            }, 15000); // 15 seconds delay
+                videoModal.show();
+            }, 15000); // 15 seconds in milliseconds
         });
     }
 
