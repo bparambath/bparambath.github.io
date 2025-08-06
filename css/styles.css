@@ -79,23 +79,6 @@
   }
 }
 
-/* Guaranteed Modal Styles */
-#videoAdModal {
-  z-index: 9999 !important;
-}
-
-#youtubePlayer {
-  min-height: 300px;
-  background: #000;
-}
-
-#youtubePlayer iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
-}
 
 body {
   margin: 0;

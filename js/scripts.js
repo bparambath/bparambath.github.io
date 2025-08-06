@@ -50,39 +50,20 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-    // Guaranteed Working YouTube Player
     document.addEventListener('DOMContentLoaded', function() {
-    const primaryButton = document.querySelector('.btn.btn-primary');
-    
-    if (primaryButton) {
-        primaryButton.addEventListener('click', function() {
-        setTimeout(showYouTubeModal, 5000); // 5 seconds
-        });
-    }
+  const primaryButton = document.querySelector('.btn.btn-primary');
+  
+  if (primaryButton) {
+    primaryButton.addEventListener('click', function() {
+      // Replace this with your actual YouTube video URL
+      const youtubeUrl = 'https://youtu.be/gFITP2zSzT0'; 
+      
+      setTimeout(function() {
+        console.log('Redirecting to YouTube video'); // For debugging
+        window.location.href = youtubeUrl;
+      }, 5000); // 5 seconds delay
     });
-
-    function showYouTubeModal() {
-    const modal = new bootstrap.Modal('#videoAdModal');
-    const playerDiv = document.getElementById('youtubePlayer');
-    
-    // First show the modal with loading message
-    modal.show();
-    
-    // Create iframe after modal is shown
-    const iframe = document.createElement('iframe');
-    iframe.src = 'https://www.youtube.com/embed/gFITP2zSzT0?autoplay=1&mute=1&playsinline=1';
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.style.width = '100%';
-    iframe.style.height = '100%';
-    
-    // Replace loading message with iframe
-    playerDiv.innerHTML = '';
-    playerDiv.appendChild(iframe);
-    
-    // For debugging
-    console.log('YouTube iframe created with src:', iframe.src);
-    }
+  }
+});
 
 });
