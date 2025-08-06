@@ -196,19 +196,15 @@
         </section>
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Meegans Website 2021</div></footer>
-        <!-- Video Ad Modal - ADDED THIS SECTION -->
-                <div class="modal fade" id="videoAdModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Special Message</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body ratio ratio-16x9">
-                            <iframe id="youtubeVideo" src="" frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen></iframe>
-                        </div>
+        <!-- YouTube Video Modal - Mobile Optimized -->
+        <div class="modal fade" id="videoAdModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 bg-transparent">
+                    <div class="modal-header border-0 p-1">
+                        <button type="button" class="btn-close bg-white rounded-circle p-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0 ratio ratio-16x9">
+                        <!-- YouTube iframe will be inserted here by JS -->
                     </div>
                 </div>
             </div>

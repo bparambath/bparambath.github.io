@@ -79,6 +79,12 @@
   }
 }
 
+.btn-close {
+    width: 2rem;
+    height: 2rem;
+    background-size: 60%;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
