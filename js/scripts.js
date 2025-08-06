@@ -50,5 +50,22 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
+    // Video ad after button click
+    const primaryButton = document.querySelector('.btn-primary');
+    if (primaryButton) {
+        primaryButton.addEventListener('click', function() {
+            setTimeout(function() {
+                const videoModal = new bootstrap.Modal(document.getElementById('videoAdModal'));
+                const youtubeIframe = document.getElementById('youtubeVideo');
+                
+                // Replace VIDEO_ID with your actual YouTube video ID
+                // Example: For https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                // The ID is dQw4w9WgXcQ
+                youtubeIframe.src = "https://www.youtube.com/watch?v=gFITP2zSzT0";
+                
+                videoModal.show();
+            }, 15000); // 15 seconds in milliseconds
+        });
+    }
 
 });
