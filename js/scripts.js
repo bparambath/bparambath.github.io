@@ -51,19 +51,19 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
     document.addEventListener('DOMContentLoaded', function() {
-  const primaryButton = document.querySelector('.btn.btn-primary');
-  
-  if (primaryButton) {
-    primaryButton.addEventListener('click', function() {
-      // Replace this with your actual YouTube video URL
-      const youtubeUrl = 'https://youtu.be/gFITP2zSzT0'; 
-      
-      setTimeout(function() {
-        console.log('Redirecting to YouTube video'); // For debugging
-        window.location.href = youtubeUrl;
-      }, 5000); // 5 seconds delay
-    });
-  }
-});
+        const primaryButton = document.querySelector('.btn.btn-primary');
+        
+        if (primaryButton) {
+            primaryButton.addEventListener('click', function() {
+            // Replace this with your actual YouTube video URL
+            const youtubeUrl = 'https://youtu.be/gFITP2zSzT0'; 
+            
+            setTimeout(function() {
+                console.log('Redirecting to YouTube video'); // For debugging
+                window.location.href = youtubeUrl;
+            }, 5000); // 5 seconds delay
+            });
+        }
+        });
 
 });
