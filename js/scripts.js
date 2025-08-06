@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', event => {
                     
                     // Create YouTube iframe (REPLACE VIDEO_ID with your actual ID)
                     const iframe = document.createElement('iframe');
-                    iframe.src = 'https://www.youtube.com/embed/gFITP2zSzT0?autoplay=1&mute=1&playsinline=1';
+                    iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&playsinline=1';
                     iframe.setAttribute('frameborder', '0');
                     iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
                     iframe.setAttribute('allowfullscreen', '');
