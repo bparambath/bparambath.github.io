@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Meegan's Books</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0e0b08;
+      color: #e8dfd0;
+      font-family: 'Crimson Pro', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(14,11,8,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(139,90,43,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 56px;
+    }
+
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: #c9935a;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #8a7a68;
+      text-decoration: none;
+      font-size: 0.88rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 2px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #e0c89a;
+      background: rgba(139,90,43,0.15);
+    }
+
+    /* ── PAGE ── */
+    .page {
+      min-height: 100vh;
+      padding: 100px 24px 80px;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(139,90,43,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(80,55,35,0.1) 0%, transparent 50%);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .header-eyebrow {
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: #a0845c;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      color: #f0e6d3;
+      line-height: 1.15;
+    }
+
+    h1 em { font-style: italic; color: #c9935a; }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #8a7a68;
+      margin-top: 12px;
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .divider {
+      width: 48px; height: 1px;
+      background: linear-gradient(to right, transparent, #6b4f2e, transparent);
+      margin: 20px auto 0;
+    }
+
+    /* ── MAIN ── */
+    .main { max-width: 720px; margin: 0 auto; }
+
+    .input-label {
+      font-weight: 300;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #a0845c;
+      margin-bottom: 14px;
+      display: block;
+      letter-spacing: 0.03em;
+    }
+
+    .input-row { display: flex; gap: 10px; margin-bottom: 28px; }
+
+    .book-input {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(139,90,43,0.25);
+      border-radius: 3px;
+      padding: 14px 18px;
+      color: #e8dfd0;
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.05rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .book-input::placeholder { color: #4a3f35; }
+    .book-input:focus {
+      border-color: rgba(139,90,43,0.6);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .add-btn {
+      background: rgba(139,90,43,0.18);
+      border: 1px solid rgba(139,90,43,0.4);
+      border-radius: 3px;
+      color: #c9935a;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      padding: 14px 22px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .add-btn:hover {
+      background: rgba(139,90,43,0.3);
+      border-color: rgba(201,147,90,0.6);
+      color: #e0a96a;
+    }
+
+    .shelf {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+      min-height: 0;
+    }
+
+    .book-tag {
+      background: rgba(139,90,43,0.12);
+      border: 1px solid rgba(139,90,43,0.28);
+      border-radius: 2px;
+      padding: 7px 14px 7px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.97rem;
+      color: #d4bfa0;
+      font-style: italic;
+      animation: tagIn 0.25s ease;
+    }
+
+    @keyframes tagIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #5a4535;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+      padding: 0;
+      transition: color 0.15s;
+    }
+    .remove-btn:hover { color: #c9935a; }
+
+    .recommend-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #7a4f28 0%, #5a3518 100%);
+      border: 1px solid rgba(201,147,90,0.35);
+      border-radius: 3px;
+      color: #f0e0c8;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      padding: 18px 32px;
+      cursor: pointer;
+      transition: all 0.25s;
+      letter-spacing: 0.02em;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .recommend-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
+    }
+
+    .recommend-btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, #8c5c30 0%, #6b3f1e 100%);
+      border-color: rgba(201,147,90,0.55);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+    }
+
+    .recommend-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .result-card {
+      margin-top: 44px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(139,90,43,0.2);
+      border-radius: 4px;
+      padding: 36px 38px;
+      animation: cardIn 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,147,90,0.5), transparent);
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #7a5c3a;
+      font-weight: 400;
+      margin-bottom: 18px;
+    }
+
+    .result-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #f0e0c8;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .result-author {
+      font-style: italic;
+      color: #a0845c;
+      font-size: 1.05rem;
+      margin-bottom: 22px;
+    }
+
+    .result-body {
+      font-size: 1.07rem;
+      line-height: 1.78;
+      color: #c8b89a;
+      font-weight: 300;
+      white-space: pre-wrap;
+    }
+
+    .loading-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 28px 0;
+      color: #7a5c3a;
+      font-style: italic;
+      font-size: 1.05rem;
+      justify-content: center;
+    }
+
+    .quill {
+      font-size: 1.5rem;
+      animation: quillBob 1.4s ease-in-out infinite;
+    }
+
+    @keyframes quillBob {
+      0%, 100% { transform: rotate(-10deg) translateY(0); }
+      50%       { transform: rotate(10deg) translateY(-5px); }
+    }
+
+    .empty-shelf {
+      text-align: center;
+      padding: 24px 0;
+      color: #3d3028;
+      font-style: italic;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    .error-msg {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: rgba(180,60,40,0.1);
+      border: 1px solid rgba(180,60,40,0.25);
+      border-radius: 3px;
+      color: #c97060;
+      font-size: 0.97rem;
+      font-style: italic;
+    }
+
+    .ornament {
+      text-align: center;
+      color: #3d2e1e;
+      font-size: 1.2rem;
+      letter-spacing: 0.5em;
+      margin: 30px 0 0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="index.html">Meegan's Site</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">This Year!</a></li>
+      <li><a href="index.html#projects">Past Years!!</a></li>
+      <li><a href="books.html" class="active">Books 📚</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <header class="header">
+      <p class="header-eyebrow">A Literary Companion</p>
+      <h1>Your Next <em>Great</em> Read</h1>
+      <p class="subtitle">Tell us what you've loved — we'll find what's next.</p>
+      <div class="divider"></div>
+    </header>
+
+    <main class="main">
+      <label class="input-label">Books you've read</label>
+      <div class="input-row">
+        <input
+          id="bookInput"
+          class="book-input"
+          type="text"
+          placeholder="e.g. The Name of the Wind by Patrick Rothfuss"
+        />
+        <button class="add-btn" onclick="addBook()">Add</button>
+      </div>
+
+      <div class="shelf" id="shelf"></div>
+
+      <button class="recommend-btn" id="recommendBtn" onclick="getRecommendation()" disabled>
+        Recommend My Next Book →
+      </button>
+
+      <div id="error" class="error-msg" style="display:none"></div>
+
+      <div class="loading-wrap" id="loading" style="display:none">
+        <span class="quill">✒️</span>
+        <span>Searching the stacks for your perfect next read…</span>
+      </div>
+
+      <div class="result-card" id="result" style="display:none">
+        <p class="result-eyebrow">Recommended for you</p>
+        <h2 class="result-title" id="resultTitle"></h2>
+        <p class="result-author" id="resultAuthor"></p>
+        <p class="result-body" id="resultBody"></p>
+      </div>
+
+      <p class="ornament">· · ·</p>
+    </main>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'meegan_books';
+    let books = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+    function saveBooks() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+    }
+
+    function renderShelf() {
+      const shelf = document.getElementById('shelf');
+      shelf.innerHTML = '';
+
+      if (books.length === 0) {
+        shelf.innerHTML = '<p class="empty-shelf">Your shelf is empty — add some books above.</p>';
+      } else {
+        books.forEach((b, i) => {
+          const tag = document.createElement('div');
+          tag.className = 'book-tag';
+          tag.innerHTML = `<span>${b}</span><button class="remove-btn" title="Remove" onclick="removeBook(${i})">×</button>`;
+          shelf.appendChild(tag);
+        });
+      }
+
+      document.getElementById('recommendBtn').disabled = books.length === 0;
+    }
+
+    function addBook() {
+      const input = document.getElementById('bookInput');
+      const val = input.value.trim();
+      if (!val || books.includes(val)) return;
+      books.push(val);
+      saveBooks();
+      input.value = '';
+      renderShelf();
+      clearResult();
+    }
+
+    function removeBook(i) {
+      books.splice(i, 1);
+      saveBooks();
+      renderShelf();
+      clearResult();
+    }
+
+    function clearResult() {
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('error').style.display = 'none';
+    }
+
+    document.getElementById('bookInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') addBook();
+    });
+
+    async function getRecommendation() {
+      if (books.length === 0) return;
+
+      document.getElementById('recommendBtn').disabled = true;
+      document.getElementById('loading').style.display = 'flex';
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('error').style.display = 'none';
+
+      const prompt = `I have read the following books:\n${books.map((b,i)=>`${i+1}. ${b}`).join('\n')}\n\nBased on these, recommend ONE book I should read next. Format your response exactly like this:\n**[Book Title]** by [Author Name]\n\n[2-3 paragraphs explaining why this book is perfect for me based on my reading history, what themes connect it to books I've enjoyed, and what I can expect from the reading experience. Be specific and personal.]`;
+
+      try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 1000,
+            messages: [{ role: 'user', content: prompt }]
+          })
+        });
+
+        const data = await res.json();
+        const text = (data.content || []).map(b => b.text || '').join('');
+        if (!text) throw new Error('No response');
+
+        const titleMatch = text.match(/\*\*(.+?)\*\*/);
+        const authorMatch = text.match(/by\s+([A-Z][^—\n,]+)/);
+        const title = titleMatch ? titleMatch[1] : '';
+        const author = authorMatch ? authorMatch[1].trim() : '';
+        const body = text.replace(/\*\*[^*]+\*\*/g, '').trim();
+
+        document.getElementById('resultTitle').textContent = title;
+        document.getElementById('resultAuthor').textContent = author ? `by ${author}` : '';
+        document.getElementById('resultBody').textContent = body;
+        document.getElementById('result').style.display = 'block';
+
+      } catch (err) {
+        const errEl = document.getElementById('error');
+        errEl.textContent = 'Something went wrong. Please try again.';
+        errEl.style.display = 'block';
+      } finally {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('recommendBtn').disabled = false;
+      }
+    }
+
+    // Init
+    renderShelf();
+  </script>
+</body>
+</html>
