@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/bpara/Downloads/books_4.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Meegan's Books</title>
-  <link href="./books_files/css2" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #0e0b08;
-      color: #e8dfd0;
-      font-family: 'Crimson Pro', Georgia, serif;
+      background: #1a1a2e;
+      color: #e0d6cc;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
       min-height: 100vh;
     }
 
@@ -20,9 +21,9 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(14,11,8,0.92);
+      background: rgba(15,15,30,0.95);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(139,90,43,0.2);
+      border-bottom: 1px solid rgba(200,160,120,0.15);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -31,24 +32,21 @@
     }
 
     .nav-brand {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-style: italic;
-      color: #c9935a;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #c8a07a;
       text-decoration: none;
-      letter-spacing: 0.02em;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 4px;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 4px; list-style: none; }
 
     .nav-links a {
-      color: #8a7a68;
+      color: #8a8a9a;
       text-decoration: none;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       padding: 8px 14px;
@@ -56,165 +54,160 @@
       transition: color 0.2s, background 0.2s;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: #e0c89a;
-      background: rgba(139,90,43,0.15);
-    }
+    .nav-links a:hover { color: #e0d6cc; background: rgba(200,160,120,0.1); }
+    .nav-links a.active { color: #c8a07a; border-bottom: 2px solid #c8a07a; }
 
     /* ── PAGE ── */
     .page {
       min-height: 100vh;
-      padding: 100px 24px 80px;
-      background-image:
-        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(139,90,43,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(80,55,35,0.1) 0%, transparent 50%);
+      padding: 96px 24px 80px;
+      background:
+        radial-gradient(ellipse 70% 40% at 15% 0%, rgba(100,80,160,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 35% at 85% 90%, rgba(180,120,80,0.09) 0%, transparent 55%);
     }
 
-    .header {
-      text-align: center;
-      margin-bottom: 52px;
-    }
+    /* ── HEADER ── */
+    .header { text-align: center; margin-bottom: 56px; }
 
     .header-eyebrow {
-      font-weight: 300;
-      font-style: italic;
-      letter-spacing: 0.25em;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      font-size: 0.78rem;
-      color: #a0845c;
-      margin-bottom: 12px;
+      color: #c8a07a;
+      margin-bottom: 14px;
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 700;
-      color: #f0e6d3;
+      color: #f5efe8;
       line-height: 1.15;
     }
 
-    h1 em { font-style: italic; color: #c9935a; }
+    h1 em { font-style: italic; color: #c8a07a; }
 
     .subtitle {
-      font-size: 1.1rem;
-      color: #8a7a68;
+      font-size: 1rem;
+      color: #6a6a7a;
       margin-top: 12px;
-      font-style: italic;
       font-weight: 300;
     }
 
     .divider {
-      width: 48px; height: 1px;
-      background: linear-gradient(to right, transparent, #6b4f2e, transparent);
-      margin: 20px auto 0;
+      width: 40px; height: 1px;
+      background: linear-gradient(to right, transparent, #c8a07a, transparent);
+      margin: 18px auto 0;
     }
 
     /* ── MAIN ── */
-    .main { max-width: 720px; margin: 0 auto; }
+    .main { max-width: 700px; margin: 0 auto; }
 
     .input-label {
-      font-weight: 300;
-      font-style: italic;
-      font-size: 1.05rem;
-      color: #a0845c;
-      margin-bottom: 14px;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6a6a7a;
+      margin-bottom: 12px;
       display: block;
-      letter-spacing: 0.03em;
     }
 
-    .input-row { display: flex; gap: 10px; margin-bottom: 28px; }
+    .input-row { display: flex; gap: 10px; margin-bottom: 24px; }
+
+    .input-wrap { position: relative; flex: 1; min-width: 0; }
+    .input-wrap .book-input { width: 100%; }
 
     .book-input {
-      flex: 1;
       background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(139,90,43,0.25);
+      border: 1px solid rgba(200,160,120,0.2);
       border-radius: 3px;
-      padding: 14px 18px;
-      color: #e8dfd0;
-      font-family: 'Crimson Pro', serif;
-      font-size: 1.05rem;
+      padding: 13px 16px;
+      color: #e0d6cc;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.97rem;
       font-weight: 300;
       outline: none;
       transition: border-color 0.2s, background 0.2s;
     }
 
-    .book-input::placeholder { color: #4a3f35; }
+    .book-input::placeholder { color: #3a3a4a; }
     .book-input:focus {
-      border-color: rgba(139,90,43,0.6);
+      border-color: rgba(200,160,120,0.5);
       background: rgba(255,255,255,0.06);
     }
 
     .add-btn {
-      background: rgba(139,90,43,0.18);
-      border: 1px solid rgba(139,90,43,0.4);
+      background: rgba(200,160,120,0.15);
+      border: 1px solid rgba(200,160,120,0.35);
       border-radius: 3px;
-      color: #c9935a;
-      font-family: 'Playfair Display', serif;
-      font-size: 0.95rem;
-      padding: 14px 22px;
+      color: #c8a07a;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 13px 20px;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      transition: all 0.2s;
       white-space: nowrap;
     }
 
     .add-btn:hover {
-      background: rgba(139,90,43,0.3);
-      border-color: rgba(201,147,90,0.6);
-      color: #e0a96a;
+      background: rgba(200,160,120,0.25);
+      border-color: rgba(200,160,120,0.6);
+      color: #ddb880;
     }
 
-    .shelf {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 36px;
-      min-height: 0;
-    }
+    /* ── SHELF ── */
+    .shelf { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; min-height: 0; }
 
     .book-tag {
-      background: rgba(139,90,43,0.12);
-      border: 1px solid rgba(139,90,43,0.28);
+      background: rgba(100,80,160,0.1);
+      border: 1px solid rgba(100,80,160,0.25);
       border-radius: 2px;
-      padding: 7px 14px 7px 16px;
+      padding: 6px 12px 6px 14px;
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 0.97rem;
-      color: #d4bfa0;
-      font-style: italic;
+      font-size: 0.9rem;
+      color: #b8b0d0;
       animation: tagIn 0.25s ease;
     }
 
     @keyframes tagIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(5px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     .remove-btn {
-      background: none;
-      border: none;
-      color: #5a4535;
-      cursor: pointer;
-      font-size: 1.1rem;
-      line-height: 1;
-      padding: 0;
+      background: none; border: none;
+      color: #3a3a5a; cursor: pointer;
+      font-size: 1rem; line-height: 1; padding: 0;
       transition: color 0.15s;
     }
-    .remove-btn:hover { color: #c9935a; }
+    .remove-btn:hover { color: #c8a07a; }
 
+    .empty-shelf {
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+      color: #2a2a3a;
+      font-size: 0.9rem;
+    }
+
+    /* ── BUTTON ── */
     .recommend-btn {
       width: 100%;
-      background: linear-gradient(135deg, #7a4f28 0%, #5a3518 100%);
-      border: 1px solid rgba(201,147,90,0.35);
+      background: linear-gradient(135deg, #2d2060 0%, #1a1440 100%);
+      border: 1px solid rgba(100,80,160,0.4);
       border-radius: 3px;
-      color: #f0e0c8;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      padding: 18px 32px;
+      color: #c8b8e8;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 17px 32px;
       cursor: pointer;
       transition: all 0.25s;
-      letter-spacing: 0.02em;
       position: relative;
       overflow: hidden;
     }
@@ -222,86 +215,87 @@
     .recommend-btn::before {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 60%);
     }
 
     .recommend-btn:hover:not(:disabled) {
-      background: linear-gradient(135deg, #8c5c30 0%, #6b3f1e 100%);
-      border-color: rgba(201,147,90,0.55);
+      background: linear-gradient(135deg, #3a2880 0%, #251a55 100%);
+      border-color: rgba(150,120,220,0.6);
       transform: translateY(-1px);
       box-shadow: 0 6px 24px rgba(0,0,0,0.4);
     }
 
-    .recommend-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .recommend-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
+    /* ── RESULT ── */
     .result-card {
-      margin-top: 44px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(139,90,43,0.2);
+      margin-top: 40px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(200,160,120,0.15);
       border-radius: 4px;
-      padding: 36px 38px;
+      padding: 32px 36px;
       animation: cardIn 0.5s ease;
       position: relative;
-      overflow: hidden;
     }
 
     .result-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(to right, transparent, rgba(201,147,90,0.5), transparent);
+      background: linear-gradient(to right, transparent, rgba(200,160,120,0.4), transparent);
     }
 
     @keyframes cardIn {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     .result-eyebrow {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: #7a5c3a;
-      font-weight: 400;
-      margin-bottom: 18px;
+      color: #5a5a6a;
+      margin-bottom: 16px;
     }
 
     .result-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      color: #f0e0c8;
-      margin-bottom: 6px;
+      font-size: 1.5rem;
+      color: #f5efe8;
+      margin-bottom: 5px;
       font-weight: 700;
     }
 
     .result-author {
       font-style: italic;
-      color: #a0845c;
-      font-size: 1.05rem;
-      margin-bottom: 22px;
+      color: #c8a07a;
+      font-size: 0.97rem;
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
     }
 
     .result-body {
-      font-size: 1.07rem;
+      font-size: 1rem;
       line-height: 1.78;
-      color: #c8b89a;
+      color: #9090a0;
       font-weight: 300;
       white-space: pre-wrap;
     }
 
+    /* ── LOADING ── */
     .loading-wrap {
       display: flex;
       align-items: center;
       gap: 14px;
       padding: 28px 0;
-      color: #7a5c3a;
-      font-style: italic;
-      font-size: 1.05rem;
+      color: #5a5a7a;
+      font-size: 0.9rem;
       justify-content: center;
+      letter-spacing: 0.05em;
     }
 
     .quill {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       animation: quillBob 1.4s ease-in-out infinite;
     }
 
@@ -310,107 +304,71 @@
       50%       { transform: rotate(10deg) translateY(-5px); }
     }
 
-    .empty-shelf {
-      text-align: center;
-      padding: 24px 0;
-      color: #3d3028;
-      font-style: italic;
-      font-size: 1rem;
-      width: 100%;
-    }
-
+    /* ── ERROR ── */
     .error-msg {
       margin-top: 20px;
-      padding: 14px 18px;
-      background: rgba(180,60,40,0.1);
-      border: 1px solid rgba(180,60,40,0.25);
+      padding: 13px 16px;
+      background: rgba(180,60,40,0.08);
+      border: 1px solid rgba(180,60,40,0.2);
       border-radius: 3px;
-      color: #c97060;
-      font-size: 0.97rem;
-      font-style: italic;
+      color: #b06060;
+      font-size: 0.9rem;
     }
 
     .ornament {
       text-align: center;
-      color: #3d2e1e;
-      font-size: 1.2rem;
-      letter-spacing: 0.5em;
-      margin: 30px 0 0;
+      color: #2a2a3a;
+      font-size: 1rem;
+      letter-spacing: 0.6em;
+      margin: 28px 0 0;
     }
 
     /* ── AUTOCOMPLETE ── */
-    .input-wrap {
-      position: relative;
-      flex: 1;
-      min-width: 0;
-    }
-    .input-wrap .book-input { width: 100%; }
-
     .autocomplete-dropdown {
       position: absolute;
       top: calc(100% + 4px);
       left: 0; right: 0;
-      background: #1a1410;
-      border: 1px solid rgba(139,90,43,0.35);
+      background: #16162a;
+      border: 1px solid rgba(200,160,120,0.25);
       border-radius: 3px;
       z-index: 200;
       box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-      max-height: 280px;
+      max-height: 260px;
       overflow-y: auto;
     }
 
     .ac-item {
-      padding: 11px 16px;
+      padding: 10px 14px;
       cursor: pointer;
-      border-bottom: 1px solid rgba(139,90,43,0.1);
-      transition: background 0.12s;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
       display: flex;
       flex-direction: column;
       gap: 2px;
+      transition: background 0.1s;
     }
 
     .ac-item:last-child { border-bottom: none; }
+    .ac-item:hover, .ac-item.ac-active { background: rgba(200,160,120,0.1); }
 
-    .ac-item:hover,
-    .ac-item.ac-active {
-      background: rgba(139,90,43,0.18);
-    }
-
-    .ac-title {
-      font-style: italic;
-      font-size: 1rem;
-      color: #e0cdb0;
-      line-height: 1.3;
-    }
-
-    .ac-author {
-      font-size: 0.82rem;
-      color: #7a5c3a;
-      font-style: normal;
-    }
-
-    .ac-loading {
-      padding: 12px 16px;
-      color: #5a4535;
-      font-style: italic;
-      font-size: 0.9rem;
-    }
+    .ac-title { font-size: 0.95rem; color: #d0c8e0; }
+    .ac-author { font-size: 0.78rem; color: #5a5a6a; }
+    .ac-loading { padding: 11px 14px; color: #3a3a4a; font-size: 0.85rem; }
   </style>
 </head>
 <body>
 
   <nav>
-    <a class="nav-brand" href="file:///C:/Users/bpara/Downloads/index.html">Meegan's Site</a>
+    <a class="nav-brand" href="index.html">Meegan's Site</a>
     <ul class="nav-links">
-      <li><a href="file:///C:/Users/bpara/Downloads/index.html#about">This Year!</a></li>
-      <li><a href="file:///C:/Users/bpara/Downloads/index.html#projects">Past Years!!</a></li>
-      <li><a href="file:///C:/Users/bpara/Downloads/books.html" class="active">Books 📚</a></li>
+      <li><a href="index.html#about">This Year!</a></li>
+      <li><a href="index.html#projects">Past Years!!</a></li>
+      <li><a href="books.html" class="active">Books 📚</a></li>
     </ul>
   </nav>
 
   <div class="page">
     <header class="header">
-      <p class="header-eyebrow">A Literary Companion</p>
+      <p class="header-eyebrow">Literary Corner</p>
       <h1>Your Next <em>Great</em> Read</h1>
       <p class="subtitle">Tell us what you've loved — we'll find what's next.</p>
       <div class="divider"></div>
@@ -420,15 +378,21 @@
       <label class="input-label">Books you've read</label>
       <div class="input-row">
         <div class="input-wrap">
-          <input id="bookInput" class="book-input" type="text" placeholder="e.g. The Name of the Wind by Patrick Rothfuss" autocomplete="off">
+          <input
+            id="bookInput"
+            class="book-input"
+            type="text"
+            placeholder="e.g. The Name of the Wind by Patrick Rothfuss"
+            autocomplete="off"
+          />
           <div id="acDropdown" class="autocomplete-dropdown" style="display:none"></div>
         </div>
         <button class="add-btn" onclick="addBook()">Add</button>
       </div>
 
-      <div class="shelf" id="shelf"><p class="empty-shelf">Your shelf is empty — add some books above.</p></div>
+      <div class="shelf" id="shelf"></div>
 
-      <button class="recommend-btn" id="recommendBtn" onclick="getRecommendation()" disabled="">
+      <button class="recommend-btn" id="recommendBtn" onclick="getRecommendation()" disabled>
         Recommend My Next Book →
       </button>
 
@@ -436,7 +400,7 @@
 
       <div class="loading-wrap" id="loading" style="display:none">
         <span class="quill">✒️</span>
-        <span>Searching the stacks for your perfect next read…</span>
+        <span>Searching the stacks…</span>
       </div>
 
       <div class="result-card" id="result" style="display:none">
@@ -452,19 +416,15 @@
 
   <script>
     const STORAGE_KEY = 'meegan_books';
+    const REC_KEY = 'meegan_last_rec';
     let books = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 
-    // ── Autocomplete state ──
-    let acResults = [];
-    let acIndex = -1;
-    let acDebounce = null;
-
+    // ── Autocomplete ──
+    let acResults = [], acIndex = -1, acDebounce = null;
     const input = document.getElementById('bookInput');
     const dropdown = document.getElementById('acDropdown');
 
-    function saveBooks() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
-    }
+    function saveBooks() { localStorage.setItem(STORAGE_KEY, JSON.stringify(books)); }
 
     function renderShelf() {
       const shelf = document.getElementById('shelf');
@@ -483,34 +443,45 @@
     }
 
     function addBook(val) {
-      const v = (val || input.value).trim();
+      const v = (val !== undefined ? val : input.value).trim();
       if (!v || books.includes(v)) { closeDropdown(); return; }
       books.push(v);
       saveBooks();
       input.value = '';
       closeDropdown();
       renderShelf();
-      clearResult();
+      clearError();
     }
 
     function removeBook(i) {
       books.splice(i, 1);
       saveBooks();
       renderShelf();
-      clearResult();
+      clearError();
     }
 
-    function clearResult() {
-      document.getElementById('result').style.display = 'none';
+    function clearError() {
       document.getElementById('error').style.display = 'none';
+    }
+
+    // ── Restore last recommendation ──
+    function restoreRec() {
+      const saved = localStorage.getItem(REC_KEY);
+      if (!saved) return;
+      try {
+        const { title, author, body } = JSON.parse(saved);
+        document.getElementById('resultTitle').textContent = title;
+        document.getElementById('resultAuthor').textContent = author ? `by ${author}` : '';
+        document.getElementById('resultBody').textContent = body;
+        document.getElementById('result').style.display = 'block';
+      } catch(e) {}
     }
 
     // ── Autocomplete ──
     function closeDropdown() {
       dropdown.style.display = 'none';
       dropdown.innerHTML = '';
-      acResults = [];
-      acIndex = -1;
+      acResults = []; acIndex = -1;
     }
 
     function renderDropdown(items) {
@@ -520,7 +491,7 @@
         const el = document.createElement('div');
         el.className = 'ac-item';
         el.innerHTML = `<span class="ac-title">${item.title}</span>${item.author ? `<span class="ac-author">${item.author}</span>` : ''}`;
-        el.addEventListener('mousedown', (e) => {
+        el.addEventListener('mousedown', e => {
           e.preventDefault();
           input.value = item.title + (item.author ? ' by ' + item.author : '');
           closeDropdown();
@@ -531,8 +502,7 @@
     }
 
     function setActiveItem(idx) {
-      const items = dropdown.querySelectorAll('.ac-item');
-      items.forEach((el, i) => el.classList.toggle('ac-active', i === idx));
+      dropdown.querySelectorAll('.ac-item').forEach((el, i) => el.classList.toggle('ac-active', i === idx));
     }
 
     async function fetchSuggestions(query) {
@@ -542,16 +512,10 @@
       try {
         const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&fields=title,author_name&limit=6`);
         const data = await res.json();
-        acResults = (data.docs || []).map(d => ({
-          title: d.title,
-          author: d.author_name ? d.author_name[0] : ''
-        }));
-        // filter out already-added books
+        acResults = (data.docs || []).map(d => ({ title: d.title, author: d.author_name ? d.author_name[0] : '' }));
         acResults = acResults.filter(r => !books.includes(r.title + (r.author ? ' by ' + r.author : '')));
         renderDropdown(acResults);
-      } catch {
-        closeDropdown();
-      }
+      } catch { closeDropdown(); }
     }
 
     input.addEventListener('input', () => {
@@ -585,19 +549,19 @@
       }
     });
 
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', e => {
       if (!e.target.closest('.input-wrap')) closeDropdown();
     });
 
+    // ── Recommendation ──
     async function getRecommendation() {
       if (books.length === 0) return;
-
       document.getElementById('recommendBtn').disabled = true;
       document.getElementById('loading').style.display = 'flex';
       document.getElementById('result').style.display = 'none';
       document.getElementById('error').style.display = 'none';
 
-      const prompt = `I have read the following books:\n${books.map((b,i)=>`${i+1}. ${b}`).join('\n')}\n\nBased on these, recommend ONE book I should read next. Format your response exactly like this:\n**[Book Title]** by [Author Name]\n\n[2-3 paragraphs explaining why this book is perfect for me based on my reading history, what themes connect it to books I've enjoyed, and what I can expect from the reading experience. Be specific and personal.]`;
+      const prompt = `Books I've read:\n${books.map((b,i)=>`${i+1}. ${b}`).join('\n')}\n\nRecommend ONE book I should read next. Format:\n**[Title]** by [Author]\n\n[2 paragraphs on why it suits my taste and what to expect.]`;
 
       try {
         const res = await fetch('https://book-proxy.bparambath1.workers.dev', {
@@ -605,7 +569,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             model: 'claude-sonnet-4-5',
-            max_tokens: 1000,
+            max_tokens: 600,
             messages: [{ role: 'user', content: prompt }]
           })
         });
@@ -619,6 +583,9 @@
         const title = titleMatch ? titleMatch[1] : '';
         const author = authorMatch ? authorMatch[1].trim() : '';
         const body = text.replace(/\*\*[^*]+\*\*/g, '').trim();
+
+        // Save to localStorage
+        localStorage.setItem(REC_KEY, JSON.stringify({ title, author, body }));
 
         document.getElementById('resultTitle').textContent = title;
         document.getElementById('resultAuthor').textContent = author ? `by ${author}` : '';
@@ -637,7 +604,7 @@
 
     // Init
     renderShelf();
+    restoreRec();
   </script>
-
-
-</body></html>
+</body>
+</html>
