@@ -490,7 +490,10 @@
         `<span class="day-num">Day ${dayNum}</span>${getDayLabel(viewingDay)}${viewingDay === today ? ' · Today' : ''}`;
 
       grid.innerHTML = '';
-      PEOPLE.forEach(person => {
+      const orderedPeople = currentUser
+        ? [currentUser, ...PEOPLE.filter(p => p !== currentUser)]
+        : PEOPLE;
+      orderedPeople.forEach(person => {
         const streak = getStreak(person);
         const tasksDone = TASKS.filter(t => getTaskState(person, viewingDay, t.id)).length;
         const isOther = currentUser && person !== currentUser;
