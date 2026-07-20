@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>60 Day Challenge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #0f1014;
+      --surface:  #16181e;
+      --border:   rgba(255,255,255,0.07);
+      --text:     #e8e8f0;
+      --muted:    #4a4a5a;
+      --gold:     #f0c040;
+      --benju:    #38c9b0;
+      --meegan:   #f4a7c0;
+      --princu:   #f0a040;
+      --ryanne:   #70c870;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(15,16,20,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; height: 52px;
+    }
+    .nav-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: 0.15em;
+      color: var(--gold); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 4px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 7px 12px; border-radius: 2px; transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-links a.active { color: var(--gold); }
+
+    /* ── PICKER OVERLAY ── */
+    .picker-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(10,11,14,0.97);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 32px; padding: 24px;
+    }
+    .picker-overlay.hidden { display: none; }
+    .picker-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      letter-spacing: 0.08em; color: var(--text); text-align: center;
+    }
+    .picker-title em { color: var(--gold); font-style: normal; }
+    .picker-sub {
+      font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); text-align: center; margin-top: -20px;
+    }
+    .picker-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 14px; width: 100%; max-width: 440px;
+    }
+    .picker-btn {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 6px; padding: 22px 16px; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      transition: all 0.2s;
+    }
+    .picker-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.5); }
+    .picker-btn[data-person="Benju"]  { border-color: rgba(56,201,176,0.3); }
+    .picker-btn[data-person="Benju"]:hover  { border-color: var(--benju); background: rgba(56,201,176,0.08); }
+    .picker-btn[data-person="Meegan"] { border-color: rgba(244,167,192,0.3); }
+    .picker-btn[data-person="Meegan"]:hover { border-color: var(--meegan); background: rgba(244,167,192,0.08); }
+    .picker-btn[data-person="Princu"] { border-color: rgba(240,160,64,0.3); }
+    .picker-btn[data-person="Princu"]:hover { border-color: var(--princu); background: rgba(240,160,64,0.08); }
+    .picker-btn[data-person="RyAnne"] { border-color: rgba(112,200,112,0.3); }
+    .picker-btn[data-person="RyAnne"]:hover { border-color: var(--ryanne); background: rgba(112,200,112,0.08); }
+    .picker-avatar { font-size: 2rem; line-height: 1; }
+    .picker-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.08em;
+    }
+    .picker-btn[data-person="Benju"]  .picker-name { color: var(--benju); }
+    .picker-btn[data-person="Meegan"] .picker-name { color: var(--meegan); }
+    .picker-btn[data-person="Princu"] .picker-name { color: var(--princu); }
+    .picker-btn[data-person="RyAnne"] .picker-name { color: var(--ryanne); }
+
+    /* ── PROGRESS BANNER ── */
+    .banner {
+      position: fixed; top: 52px; left: 0; right: 0; z-index: 190;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 14px 28px 16px;
+    }
+    .banner-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .day-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem; line-height: 1; color: var(--gold); letter-spacing: 0.05em;
+    }
+    .day-score span { font-size: 1rem; color: var(--muted); margin-left: 4px; letter-spacing: 0.1em; }
+    .days-left { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .days-left strong { color: var(--text); }
+    .progress-track { height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold) 0%, #f8e080 100%);
+      border-radius: 3px; transition: width 0.6s ease;
+    }
+
+    /* ── PAGE ── */
+    .page { padding: 160px 20px 60px; max-width: 960px; margin: 0 auto; }
+    .page-header { text-align: center; margin-bottom: 36px; }
+    .challenge-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      letter-spacing: 0.06em; line-height: 1; color: var(--text);
+    }
+    .challenge-title em { color: var(--gold); font-style: normal; }
+    .challenge-sub {
+      font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-top: 8px;
+    }
+
+    /* ── DATE NAV ── */
+    .date-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; margin-bottom: 32px;
+    }
+    .date-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted);
+      width: 32px; height: 32px; cursor: pointer;
+      font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .date-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+    .date-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+    .date-label {
+      font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text); min-width: 160px; text-align: center;
+    }
+    .date-label .day-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem; color: var(--gold); margin-right: 6px;
+    }
+
+    /* ── CARDS GRID ── */
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+
+    /* ── PERSON CARD ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; overflow: hidden;
+      transition: opacity 0.2s;
+    }
+    .card.other-user { opacity: 0.4; pointer-events: none; }
+    .card-header {
+      padding: 14px 18px 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; }
+    .card-streak { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .card-streak strong { font-size: 1rem; font-family: 'Bebas Neue', sans-serif; }
+
+    .card[data-person="Benju"]  .card-header { border-top: 3px solid var(--benju); }
+    .card[data-person="Benju"]  .card-name  { color: var(--benju); }
+    .card[data-person="Benju"]  .card-streak strong { color: var(--benju); }
+    .card[data-person="Meegan"] .card-header { border-top: 3px solid var(--meegan); }
+    .card[data-person="Meegan"] .card-name  { color: var(--meegan); }
+    .card[data-person="Meegan"] .card-streak strong { color: var(--meegan); }
+    .card[data-person="Princu"] .card-header { border-top: 3px solid var(--princu); }
+    .card[data-person="Princu"] .card-name  { color: var(--princu); }
+    .card[data-person="Princu"] .card-streak strong { color: var(--princu); }
+    .card[data-person="RyAnne"] .card-header { border-top: 3px solid var(--ryanne); }
+    .card[data-person="RyAnne"] .card-name  { color: var(--ryanne); }
+    .card[data-person="RyAnne"] .card-streak strong { color: var(--ryanne); }
+
+    .card-body { padding: 10px 0; }
+
+    /* ── TASKS ── */
+    .task {
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 18px; cursor: pointer;
+      transition: background 0.12s; user-select: none;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .task:last-child { border-bottom: none; }
+    .task:hover:not(.locked) { background: rgba(255,255,255,0.03); }
+    .task.locked { cursor: default; opacity: 0.5; }
+    .task-check {
+      width: 20px; height: 20px; flex-shrink: 0;
+      border-radius: 4px; border: 1.5px solid var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .task.done .task-check { border-color: transparent; }
+    .card[data-person="Benju"]  .task.done .task-check { background: var(--benju); }
+    .card[data-person="Meegan"] .task.done .task-check { background: var(--meegan); }
+    .card[data-person="Princu"] .task.done .task-check { background: var(--princu); }
+    .card[data-person="RyAnne"] .task.done .task-check { background: var(--ryanne); }
+    .checkmark { display: none; color: #fff; font-size: 0.7rem; font-weight: 700; line-height: 1; }
+    .task.done .checkmark { display: block; }
+    .task-icon { font-size: 1.1rem; width: 22px; text-align: center; flex-shrink: 0; }
+    .task-label { font-size: 0.88rem; color: var(--text); flex: 1; }
+    .task.done .task-label { color: var(--muted); text-decoration: line-through; }
+
+    /* ── CARD FOOTER ── */
+    .card-footer {
+      padding: 10px 18px 14px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-tally { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .card-tally strong { font-size: 1rem; font-family: 'Bebas Neue', sans-serif; color: var(--text); }
+    .lock-note { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    .locked-overlay {
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 3px; margin: 8px 18px 4px; padding: 7px 12px;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); text-align: center; display: none;
+    }
+    .card.is-locked .locked-overlay { display: block; }
+
+    /* ── SWITCH USER ── */
+    .switch-user-btn {
+      position: fixed; bottom: 20px; right: 20px; z-index: 300;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 7px 14px;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer; transition: all 0.2s;
+    }
+    .switch-user-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── SYNC STATUS ── */
+    .sync-dot {
+      position: fixed; bottom: 20px; left: 20px; z-index: 300;
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); display: flex; align-items: center; gap: 6px;
+    }
+    .sync-dot::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--muted); display: block; transition: background 0.3s;
+    }
+    .sync-dot.synced::before { background: #70c870; }
+    .sync-dot.syncing::before { background: var(--gold); animation: pulse 1s infinite; }
+    .sync-dot.error::before { background: #e05050; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  </style>
+</head>
+<body>
+
+  <!-- User Picker -->
+  <div class="picker-overlay" id="pickerOverlay">
+    <div class="picker-title">Who <em>Are</em> You?</div>
+    <div class="picker-sub">Choose your profile to begin</div>
+    <div class="picker-grid">
+      <button class="picker-btn" data-person="Benju" onclick="selectUser('Benju')">
+        <div class="picker-avatar">💪</div>
+        <div class="picker-name">Benju</div>
+      </button>
+      <button class="picker-btn" data-person="Meegan" onclick="selectUser('Meegan')">
+        <div class="picker-avatar">🌸</div>
+        <div class="picker-name">Meegan</div>
+      </button>
+      <button class="picker-btn" data-person="Princu" onclick="selectUser('Princu')">
+        <div class="picker-avatar">⚡</div>
+        <div class="picker-name">Princu</div>
+      </button>
+      <button class="picker-btn" data-person="RyAnne" onclick="selectUser('RyAnne')">
+        <div class="picker-avatar">🌿</div>
+        <div class="picker-name">RyAnne</div>
+      </button>
+    </div>
+  </div>
+
+  <nav>
+    <a class="nav-brand" href="index.html">Meegan's Site</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">This Year!</a></li>
+      <li><a href="index.html#projects">Past Years!!</a></li>
+      <li><a href="books.html">Books 📚</a></li>
+      <li><a href="workouttracker.html" class="active">Challenge 💪</a></li>
+    </ul>
+  </nav>
+
+  <div class="banner">
+    <div class="banner-row">
+      <div class="day-score" id="dayScore">—<span>/ 60 DAYS</span></div>
+      <div class="days-left" id="daysLeft">—</div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="page-header">
+      <div class="challenge-title"><em>60 Day</em> Workout Challenge</div>
+      <div class="challenge-sub">Track · Commit · Conquer</div>
+    </div>
+    <div class="date-nav">
+      <button class="date-btn" id="prevBtn" onclick="changeDay(-1)">‹</button>
+      <div class="date-label" id="dateLabel">—</div>
+      <button class="date-btn" id="nextBtn" onclick="changeDay(1)">›</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <button class="switch-user-btn" id="switchBtn" onclick="showPicker()" style="display:none">Switch User</button>
+  <div class="sync-dot" id="syncDot">Connecting…</div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+    import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBf8jZ1p0SB8PVvfSZZEeqXT04ynP2aqIY",
+      authDomain: "mbrpworkoutchallenge.firebaseapp.com",
+      projectId: "mbrpworkoutchallenge",
+      storageBucket: "mbrpworkoutchallenge.firebasestorage.app",
+      messagingSenderId: "805233904909",
+      appId: "1:805233904909:web:f06b985f044ab20c74f444",
+      measurementId: "G-ZFDFYQV80F"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // ── CONFIG ──
+    const CHALLENGE_START = '2026-07-20';
+    const TOTAL_DAYS = 60;
+    const PEOPLE = ['Benju', 'Meegan', 'Princu', 'RyAnne'];
+    const TASKS = [
+      { id: 'water',      icon: '💧', label: '10 Cups of Water' },
+      { id: 'steps',      icon: '👟', label: '8,000 Steps' },
+      { id: 'vitamins',   icon: '💊', label: 'Vitamins' },
+      { id: 'nodrink',    icon: '🚫', label: 'No Drinking' },
+      { id: 'nodelivery', icon: '🥡', label: 'No Delivery' },
+      { id: 'workout',    icon: '🏋️', label: 'Active Workout' },
+    ];
+
+    const USER_KEY = 'challenge60_user';
+    let currentUser = localStorage.getItem(USER_KEY) || null;
+    let viewingDay = 0;
+    let firebaseData = {}; // { Benju: { day_0: { water: true, ... }, ... }, ... }
+
+    // ── SYNC STATUS ──
+    function setSyncStatus(status, label) {
+      const dot = document.getElementById('syncDot');
+      dot.className = `sync-dot ${status}`;
+      dot.textContent = label;
+    }
+
+    // ── DATE HELPERS ──
+    function todayOffset() {
+      const [sy, sm, sd] = CHALLENGE_START.split('-').map(Number);
+      const now = new Date();
+      const start = new Date(sy, sm - 1, sd);
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const diff = Math.round((today - start) / 86400000);
+      return Math.max(0, Math.min(diff, TOTAL_DAYS - 1));
+    }
+
+    function isLocked(dayOffset) {
+      const today = todayOffset();
+      if (dayOffset > today) return true;
+      const unlockUntil = dayOffset + 2;
+      return today >= unlockUntil || dayOffset < 0;
+    }
+
+    function dayKey(offset) { return `day_${offset}`; }
+
+    function getDayLabel(offset) {
+      const [sy, sm, sd] = CHALLENGE_START.split('-').map(Number);
+      const d = new Date(sy, sm - 1, sd);
+      d.setDate(d.getDate() + offset);
+      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+
+    // ── FIREBASE ──
+    async function saveTaskToFirebase(person, dayOffset, taskId, value) {
+      setSyncStatus('syncing', 'Saving…');
+      try {
+        const ref = doc(db, 'challenge', person);
+        const snap = await getDoc(ref);
+        const existing = snap.exists() ? snap.data() : {};
+        if (!existing[dayKey(dayOffset)]) existing[dayKey(dayOffset)] = {};
+        existing[dayKey(dayOffset)][taskId] = value;
+        await setDoc(ref, existing);
+        setSyncStatus('synced', 'Saved');
+      } catch (e) {
+        setSyncStatus('error', 'Error saving');
+        console.error(e);
+      }
+    }
+
+    function listenToFirebase() {
+      setSyncStatus('syncing', 'Connecting…');
+      PEOPLE.forEach(person => {
+        const ref = doc(db, 'challenge', person);
+        onSnapshot(ref, (snap) => {
+          firebaseData[person] = snap.exists() ? snap.data() : {};
+          renderCards();
+          renderBanner();
+          setSyncStatus('synced', 'Live');
+        }, (err) => {
+          setSyncStatus('error', 'Offline');
+          console.error(err);
+        });
+      });
+    }
+
+    // ── DATA HELPERS ──
+    function getTaskState(person, dayOffset, taskId) {
+      return !!(firebaseData[person]?.[dayKey(dayOffset)]?.[taskId]);
+    }
+
+    function getStreak(person) {
+      let streak = 0;
+      const today = todayOffset();
+      for (let i = today; i >= 0; i--) {
+        const tasks = firebaseData[person]?.[dayKey(i)] || {};
+        if (TASKS.every(t => tasks[t.id])) streak++;
+        else break;
+      }
+      return streak;
+    }
+
+    function getDaysCompleted() {
+      let count = 0;
+      const today = todayOffset();
+      for (let i = 0; i <= today; i++) {
+        if (PEOPLE.every(p => TASKS.every(t => firebaseData[p]?.[dayKey(i)]?.[t.id]))) count++;
+      }
+      return count;
+    }
+
+    // ── TOGGLE ──
+    window.toggleTask = async function(person, dayOffset, taskId) {
+      if (isLocked(dayOffset)) return;
+      if (currentUser && person !== currentUser) return;
+      const current = getTaskState(person, dayOffset, taskId);
+      // Optimistic update
+      if (!firebaseData[person]) firebaseData[person] = {};
+      if (!firebaseData[person][dayKey(dayOffset)]) firebaseData[person][dayKey(dayOffset)] = {};
+      firebaseData[person][dayKey(dayOffset)][taskId] = !current;
+      renderCards();
+      renderBanner();
+      await saveTaskToFirebase(person, dayOffset, taskId, !current);
+    };
+
+    // ── RENDER ──
+    window.renderBanner = function() {
+      const today = todayOffset();
+      const currentDay = Math.min(today + 1, TOTAL_DAYS);
+      const left = TOTAL_DAYS - today - 1;
+      document.getElementById('dayScore').innerHTML = `${currentDay}<span>/ ${TOTAL_DAYS} DAYS</span>`;
+      document.getElementById('daysLeft').innerHTML = left > 0
+        ? `<strong>${left}</strong> day${left !== 1 ? 's' : ''} to go`
+        : `<strong>Challenge Complete! 🎉</strong>`;
+      document.getElementById('progressFill').style.width = `${(currentDay / TOTAL_DAYS) * 100}%`;
+    };
+
+    window.renderCards = function() {
+      const grid = document.getElementById('grid');
+      const locked = isLocked(viewingDay);
+      const today = todayOffset();
+
+      document.getElementById('prevBtn').disabled = viewingDay <= 0;
+      document.getElementById('nextBtn').disabled = viewingDay >= Math.min(today, TOTAL_DAYS - 1);
+
+      const dayNum = viewingDay + 1;
+      document.getElementById('dateLabel').innerHTML =
+        `<span class="day-num">Day ${dayNum}</span>${getDayLabel(viewingDay)}${viewingDay === today ? ' · Today' : ''}`;
+
+      grid.innerHTML = '';
+      PEOPLE.forEach(person => {
+        const streak = getStreak(person);
+        const tasksDone = TASKS.filter(t => getTaskState(person, viewingDay, t.id)).length;
+        const isOther = currentUser && person !== currentUser;
+
+        const card = document.createElement('div');
+        card.className = `card${locked ? ' is-locked' : ''}${isOther ? ' other-user' : ''}`;
+        card.dataset.person = person;
+
+        card.innerHTML = `
+          <div class="card-header">
+            <div class="card-name">${person}</div>
+            <div class="card-streak">${streak > 0 ? `<strong>${streak}</strong> day streak 🔥` : 'No streak yet'}</div>
+          </div>
+          <div class="locked-overlay">🔒 Day locked</div>
+          <div class="card-body">
+            ${TASKS.map(task => {
+              const done = getTaskState(person, viewingDay, task.id);
+              return `<div class="task${done ? ' done' : ''}${locked ? ' locked' : ''}"
+                          onclick="toggleTask('${person}', ${viewingDay}, '${task.id}')">
+                <div class="task-check"><span class="checkmark">✓</span></div>
+                <div class="task-icon">${task.icon}</div>
+                <div class="task-label">${task.label}</div>
+              </div>`;
+            }).join('')}
+          </div>
+          <div class="card-footer">
+            <div class="card-tally"><strong>${tasksDone}</strong> / ${TASKS.length} done</div>
+            <div class="lock-note">${locked ? '🔒 locked' : 'Locks tomorrow night'}</div>
+          </div>`;
+
+        grid.appendChild(card);
+      });
+    };
+
+    window.changeDay = function(delta) {
+      const today = todayOffset();
+      viewingDay = Math.max(0, Math.min(viewingDay + delta, today));
+      renderCards();
+    };
+
+    window.selectUser = function(person) {
+      currentUser = person;
+      localStorage.setItem(USER_KEY, person);
+      document.getElementById('pickerOverlay').classList.add('hidden');
+      document.getElementById('switchBtn').style.display = 'block';
+      renderCards();
+    };
+
+    window.showPicker = function() {
+      document.getElementById('pickerOverlay').classList.remove('hidden');
+    };
+
+    // ── INIT ──
+    viewingDay = todayOffset();
+    renderBanner();
+
+    if (currentUser) {
+      document.getElementById('pickerOverlay').classList.add('hidden');
+      document.getElementById('switchBtn').style.display = 'block';
+    }
+
+    listenToFirebase();
+  </script>
+</body>
+</html>
