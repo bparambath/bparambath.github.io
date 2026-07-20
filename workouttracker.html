@@ -397,12 +397,32 @@
     async function saveTaskToFirebase(person, dayOffset, taskId, value) {
       setSyncStatus('syncing', 'Saving…');
       try {
+        // Save task state
         const ref = doc(db, 'challenge', person);
         const snap = await getDoc(ref);
         const existing = snap.exists() ? snap.data() : {};
         if (!existing[dayKey(dayOffset)]) existing[dayKey(dayOffset)] = {};
         existing[dayKey(dayOffset)][taskId] = value;
         await setDoc(ref, existing);
+
+        // Log analytics event (only when checking ON, not unchecking)
+        if (value === true) {
+          const now = new Date();
+          const eventRef = doc(collection(db, 'analytics'));
+          await setDoc(eventRef, {
+            person,
+            taskId,
+            dayOffset,
+            dayNumber: dayOffset + 1,
+            completedAt: now.toISOString(),
+            hour: now.getHours(),
+            minute: now.getMinutes(),
+            dayOfWeek: now.toLocaleDateString('en-US', { weekday: 'long' }),
+            date: now.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+            timestamp: now.getTime(),
+          });
+        }
+
         setSyncStatus('synced', 'Saved');
       } catch (e) {
         setSyncStatus('error', 'Error saving');
