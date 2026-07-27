@@ -3,22 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>60 Day Challenge</title>
+  <title>60 Day Challenge — Nicki & Raj</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="icon" href="favicon-workout.png" />
   <link rel="apple-touch-icon" href="favicon-workout.png" />
   <style>
     :root {
-      --bg:       #0f1014;
-      --surface:  #16181e;
-      --border:   rgba(255,255,255,0.07);
-      --text:     #e8e8f0;
-      --muted:    #4a4a5a;
-      --gold:     #f0c040;
-      --benju:    #38c9b0;
-      --meegan:   #f4a7c0;
-      --princu:   #f0a040;
-      --ryanne:   #70c870;
+      --bg:      #0f1014;
+      --surface: #16181e;
+      --border:  rgba(255,255,255,0.07);
+      --text:    #e8e8f0;
+      --muted:   #4a4a5a;
+      --gold:    #f0c040;
+      --nicki:   #b478dc;
+      --raj:     #50a0dc;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -54,59 +52,6 @@
     .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
     .nav-links a.active { color: var(--gold); }
 
-    /* ── PICKER OVERLAY ── */
-    .picker-overlay {
-      position: fixed; inset: 0; z-index: 500;
-      background: rgba(10,11,14,0.97);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 32px; padding: 24px;
-    }
-    .picker-overlay.hidden { display: none; }
-    .picker-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      letter-spacing: 0.08em; color: var(--text); text-align: center;
-    }
-    .picker-title em { color: var(--gold); font-style: normal; }
-    .picker-sub {
-      font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--muted); text-align: center; margin-top: -20px;
-    }
-    .picker-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 14px; width: 100%; max-width: 440px;
-    }
-    .picker-btn {
-      background: var(--surface); border: 1.5px solid var(--border);
-      border-radius: 6px; padding: 22px 16px; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      transition: all 0.2s;
-    }
-    .picker-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.5); }
-    .picker-btn[data-person="Benju"]  { border-color: rgba(56,201,176,0.3); }
-    .picker-btn[data-person="Benju"]:hover  { border-color: var(--benju); background: rgba(56,201,176,0.08); }
-    .picker-btn[data-person="Meegan"] { border-color: rgba(244,167,192,0.3); }
-    .picker-btn[data-person="Meegan"]:hover { border-color: var(--meegan); background: rgba(244,167,192,0.08); }
-    .picker-btn[data-person="Princu"] { border-color: rgba(240,160,64,0.3); }
-    .picker-btn[data-person="Princu"]:hover { border-color: var(--princu); background: rgba(240,160,64,0.08); }
-    .picker-btn[data-person="RyAnne"] { border-color: rgba(112,200,112,0.3); }
-    .picker-btn[data-person="RyAnne"]:hover { border-color: var(--ryanne); background: rgba(112,200,112,0.08); }
-    .picker-avatar { font-size: 2rem; line-height: 1; }
-    .picker-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem; letter-spacing: 0.08em;
-    }
-    .picker-btn[data-person="Benju"]  .picker-name { color: var(--benju); }
-    .picker-btn[data-person="Meegan"] .picker-name { color: var(--meegan); }
-    .picker-btn[data-person="Princu"] .picker-name { color: var(--princu); }
-    .picker-btn[data-person="RyAnne"] .picker-name { color: var(--ryanne); }
-    .picker-btn[data-person="Nicki"]  { border-color: rgba(180,120,220,0.3); }
-    .picker-btn[data-person="Nicki"]:hover  { border-color: #b478dc; background: rgba(180,120,220,0.08); }
-    .picker-btn[data-person="Nicki"]  .picker-name { color: #b478dc; }
-    .picker-btn[data-person="Raj"]    { border-color: rgba(80,160,220,0.3); }
-    .picker-btn[data-person="Raj"]:hover    { border-color: #50a0dc; background: rgba(80,160,220,0.08); }
-    .picker-btn[data-person="Raj"]    .picker-name { color: #50a0dc; }
-
     /* ── PROGRESS BANNER ── */
     .banner {
       position: fixed; top: 52px; left: 0; right: 0; z-index: 190;
@@ -127,12 +72,13 @@
     .progress-track { height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--gold) 0%, #f8e080 100%);
+      background: linear-gradient(90deg, var(--nicki) 0%, var(--raj) 100%);
       border-radius: 3px; transition: width 0.6s ease;
     }
 
     /* ── PAGE ── */
-    .page { padding: 160px 20px 60px; max-width: 960px; margin: 0 auto; }
+    .page { padding: 160px 20px 80px; max-width: 800px; margin: 0 auto; }
+
     .page-header { text-align: center; margin-bottom: 36px; }
     .challenge-title {
       font-family: 'Bebas Neue', sans-serif;
@@ -144,6 +90,13 @@
       font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--muted); margin-top: 8px;
     }
+    .name-duo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.1em; margin-top: 10px;
+    }
+    .name-duo .n { color: var(--nicki); }
+    .name-duo .amp { color: var(--muted); margin: 0 8px; }
+    .name-duo .r { color: var(--raj); }
 
     /* ── DATE NAV ── */
     .date-nav {
@@ -168,15 +121,13 @@
       font-size: 1.2rem; color: var(--gold); margin-right: 6px;
     }
 
-    /* ── CARDS GRID ── */
+    /* ── CARDS ── */
     .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+    @media (max-width: 580px) { .grid { grid-template-columns: 1fr; } }
 
-    /* ── PERSON CARD ── */
     .card {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 6px; overflow: hidden;
-      transition: opacity 0.2s;
+      border-radius: 6px; overflow: hidden; transition: opacity 0.2s;
     }
     .card.other-user { opacity: 0.4; pointer-events: none; }
     .card-header {
@@ -188,22 +139,15 @@
     .card-streak { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
     .card-streak strong { font-size: 1rem; font-family: 'Bebas Neue', sans-serif; }
 
-    .card[data-person="Benju"]  .card-header { border-top: 3px solid var(--benju); }
-    .card[data-person="Benju"]  .card-name  { color: var(--benju); }
-    .card[data-person="Benju"]  .card-streak strong { color: var(--benju); }
-    .card[data-person="Meegan"] .card-header { border-top: 3px solid var(--meegan); }
-    .card[data-person="Meegan"] .card-name  { color: var(--meegan); }
-    .card[data-person="Meegan"] .card-streak strong { color: var(--meegan); }
-    .card[data-person="Princu"] .card-header { border-top: 3px solid var(--princu); }
-    .card[data-person="Princu"] .card-name  { color: var(--princu); }
-    .card[data-person="Princu"] .card-streak strong { color: var(--princu); }
-    .card[data-person="RyAnne"] .card-header { border-top: 3px solid var(--ryanne); }
-    .card[data-person="RyAnne"] .card-name  { color: var(--ryanne); }
-    .card[data-person="RyAnne"] .card-streak strong { color: var(--ryanne); }
+    .card[data-person="Nicki"] .card-header { border-top: 3px solid var(--nicki); }
+    .card[data-person="Nicki"] .card-name   { color: var(--nicki); }
+    .card[data-person="Nicki"] .card-streak strong { color: var(--nicki); }
+    .card[data-person="Raj"]   .card-header { border-top: 3px solid var(--raj); }
+    .card[data-person="Raj"]   .card-name   { color: var(--raj); }
+    .card[data-person="Raj"]   .card-streak strong { color: var(--raj); }
 
     .card-body { padding: 10px 0; }
 
-    /* ── TASKS ── */
     .task {
       display: flex; align-items: center; gap: 14px;
       padding: 10px 18px; cursor: pointer;
@@ -213,6 +157,7 @@
     .task:last-child { border-bottom: none; }
     .task:hover:not(.locked) { background: rgba(255,255,255,0.03); }
     .task.locked { cursor: default; opacity: 0.5; }
+
     .task-check {
       width: 20px; height: 20px; flex-shrink: 0;
       border-radius: 4px; border: 1.5px solid var(--muted);
@@ -220,17 +165,15 @@
       transition: all 0.15s;
     }
     .task.done .task-check { border-color: transparent; }
-    .card[data-person="Benju"]  .task.done .task-check { background: var(--benju); }
-    .card[data-person="Meegan"] .task.done .task-check { background: var(--meegan); }
-    .card[data-person="Princu"] .task.done .task-check { background: var(--princu); }
-    .card[data-person="RyAnne"] .task.done .task-check { background: var(--ryanne); }
-    .checkmark { display: none; color: #fff; font-size: 0.7rem; font-weight: 700; line-height: 1; }
+    .card[data-person="Nicki"] .task.done .task-check { background: var(--nicki); }
+    .card[data-person="Raj"]   .task.done .task-check { background: var(--raj); }
+
+    .checkmark { display: none; color: #fff; font-size: 0.7rem; font-weight: 700; }
     .task.done .checkmark { display: block; }
     .task-icon { font-size: 1.1rem; width: 22px; text-align: center; flex-shrink: 0; }
     .task-label { font-size: 0.88rem; color: var(--text); flex: 1; }
     .task.done .task-label { color: var(--muted); text-decoration: line-through; }
 
-    /* ── CARD FOOTER ── */
     .card-footer {
       padding: 10px 18px 14px; border-top: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
@@ -247,17 +190,18 @@
     }
     .card.is-locked .locked-overlay { display: block; }
 
-    /* ── SWITCH USER ── */
-    .switch-user-btn {
+    /* ── BACK LINK ── */
+    .back-link {
       position: fixed; bottom: 20px; right: 20px; z-index: 300;
       background: var(--surface); border: 1px solid var(--border);
       border-radius: 20px; padding: 7px 14px;
       font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted); cursor: pointer; transition: all 0.2s;
+      color: var(--muted); cursor: pointer; text-decoration: none;
+      transition: all 0.2s; display: inline-block;
     }
-    .switch-user-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .back-link:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* ── SYNC STATUS ── */
+    /* ── SYNC ── */
     .sync-dot {
       position: fixed; bottom: 20px; left: 20px; z-index: 300;
       font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
@@ -271,49 +215,9 @@
     .sync-dot.syncing::before { background: var(--gold); animation: pulse 1s infinite; }
     .sync-dot.error::before { background: #e05050; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    /* ── REST DAY ── */
-    .task.rest-active .task-icon { filter: grayscale(0); }
-    .card.rest-day-active .card-header { background: rgba(255,255,255,0.02); }
-    .card.rest-day-active .card-name::after {
-      content: ' 😴';
-      font-size: 0.9rem;
-    }
   </style>
 </head>
 <body>
-
-  <!-- User Picker -->
-  <div class="picker-overlay" id="pickerOverlay">
-    <div class="picker-title">Who <em>Are</em> You?</div>
-    <div class="picker-sub">Choose your profile to begin</div>
-    <div class="picker-grid">
-      <button class="picker-btn" data-person="Benju" data-select="Benju">
-        <div class="picker-avatar">💪</div>
-        <div class="picker-name">Benju</div>
-      </button>
-      <button class="picker-btn" data-person="Meegan" data-select="Meegan">
-        <div class="picker-avatar">🌸</div>
-        <div class="picker-name">Meegan</div>
-      </button>
-      <button class="picker-btn" data-person="Princu" data-select="Princu">
-        <div class="picker-avatar">⚡</div>
-        <div class="picker-name">Princu</div>
-      </button>
-      <button class="picker-btn" data-person="RyAnne" data-select="RyAnne">
-        <div class="picker-avatar">🌿</div>
-        <div class="picker-name">RyAnne</div>
-      </button>
-      <button class="picker-btn" data-person="Nicki" data-select="Nicki" data-redirect="nikkiraj.html">
-        <div class="picker-avatar">✨</div>
-        <div class="picker-name">Nicki</div>
-      </button>
-      <button class="picker-btn" data-person="Raj" data-select="Raj" data-redirect="nikkiraj.html">
-        <div class="picker-avatar">🔥</div>
-        <div class="picker-name">Raj</div>
-      </button>
-    </div>
-  </div>
 
   <nav>
     <a class="nav-brand" href="index.html">Meegan's Site</a>
@@ -339,19 +243,23 @@
     <div class="page-header">
       <div class="challenge-title"><em>60 Day</em> Workout Challenge</div>
       <div class="challenge-sub">Track · Commit · Conquer</div>
+      <div class="name-duo">
+        <span class="n">Nicki</span><span class="amp">&</span><span class="r">Raj</span>
+      </div>
     </div>
+
     <div class="date-nav">
-      <button class="date-btn" id="prevBtn" data-change="-1">‹</button>
+      <button class="date-btn" id="prevBtn">‹</button>
       <div class="date-label" id="dateLabel">—</div>
-      <button class="date-btn" id="nextBtn" data-change="1">›</button>
+      <button class="date-btn" id="nextBtn">›</button>
     </div>
+
     <div class="grid" id="grid"></div>
   </div>
 
-  <button class="switch-user-btn" id="switchBtn" style="display:none">Switch User</button>
+  <a class="back-link" href="workouttracker.html">← Switch Profile</a>
   <div class="sync-dot" id="syncDot">Connecting…</div>
 
-  <!-- Firebase -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
     import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
@@ -369,10 +277,9 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // ── CONFIG ──
     const CHALLENGE_START = '2026-07-20';
     const TOTAL_DAYS = 60;
-    const PEOPLE = ['Benju', 'Meegan', 'Princu', 'RyAnne'];
+    const PEOPLE = ['Nicki', 'Raj'];
     const TASKS = [
       { id: 'water',      icon: '💧', label: '10 Cups of Water' },
       { id: 'steps',      icon: '👟', label: '8,000 Steps' },
@@ -386,16 +293,14 @@
     const USER_KEY = 'challenge60_user';
     let currentUser = localStorage.getItem(USER_KEY) || null;
     let viewingDay = 0;
-    let firebaseData = {}; // { Benju: { day_0: { water: true, ... }, ... }, ... }
+    let firebaseData = {};
 
-    // ── SYNC STATUS ──
     function setSyncStatus(status, label) {
       const dot = document.getElementById('syncDot');
       dot.className = `sync-dot ${status}`;
       dot.textContent = label;
     }
 
-    // ── DATE HELPERS ──
     function todayOffset() {
       const [sy, sm, sd] = CHALLENGE_START.split('-').map(Number);
       const now = new Date();
@@ -408,8 +313,7 @@
     function isLocked(dayOffset) {
       const today = todayOffset();
       if (dayOffset > today) return true;
-      const unlockUntil = dayOffset + 2;
-      return today >= unlockUntil || dayOffset < 0;
+      return today >= dayOffset + 2 || dayOffset < 0;
     }
 
     function dayKey(offset) { return `day_${offset}`; }
@@ -421,60 +325,20 @@
       return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
     }
 
-    // ── FIREBASE ──
-    async function saveTaskToFirebase(person, dayOffset, taskId, value) {
-      setSyncStatus('syncing', 'Saving…');
-      try {
-        // Save task state
-        const ref = doc(db, 'challenge', person);
-        const snap = await getDoc(ref);
-        const existing = snap.exists() ? snap.data() : {};
-        if (!existing[dayKey(dayOffset)]) existing[dayKey(dayOffset)] = {};
-        existing[dayKey(dayOffset)][taskId] = value;
-        await setDoc(ref, existing);
+    function getWeekStart(dayOffset) { return Math.floor(dayOffset / 7) * 7; }
 
-        // Log analytics event (only when checking ON, not unchecking)
-        if (value === true) {
-          const now = new Date();
-          const eventRef = doc(collection(db, 'analytics'));
-          await setDoc(eventRef, {
-            person,
-            taskId,
-            dayOffset,
-            dayNumber: dayOffset + 1,
-            completedAt: now.toISOString(),
-            hour: now.getHours(),
-            minute: now.getMinutes(),
-            dayOfWeek: now.toLocaleDateString('en-US', { weekday: 'long' }),
-            date: now.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }),
-            timestamp: now.getTime(),
-          });
-        }
-
-        setSyncStatus('synced', 'Saved');
-      } catch (e) {
-        setSyncStatus('error', 'Error saving');
-        console.error(e);
+    function hasUsedRestDay(person, dayOffset) {
+      const weekStart = getWeekStart(dayOffset);
+      for (let i = weekStart; i < weekStart + 7; i++) {
+        if (firebaseData[person]?.[dayKey(i)]?.restday === true) return i;
       }
+      return null;
     }
 
-    function listenToFirebase() {
-      setSyncStatus('syncing', 'Connecting…');
-      PEOPLE.forEach(person => {
-        const ref = doc(db, 'challenge', person);
-        onSnapshot(ref, (snap) => {
-          firebaseData[person] = snap.exists() ? snap.data() : {};
-          renderCards();
-          renderBanner();
-          setSyncStatus('synced', 'Live');
-        }, (err) => {
-          setSyncStatus('error', 'Offline');
-          console.error(err);
-        });
-      });
+    function isRestDay(person, dayOffset) {
+      return !!(firebaseData[person]?.[dayKey(dayOffset)]?.restday);
     }
 
-    // ── DATA HELPERS ──
     function getTaskState(person, dayOffset, taskId) {
       return !!(firebaseData[person]?.[dayKey(dayOffset)]?.[taskId]);
     }
@@ -490,60 +354,50 @@
       return streak;
     }
 
-    function getDaysCompleted() {
-      let count = 0;
-      const today = todayOffset();
-      for (let i = 0; i <= today; i++) {
-        if (PEOPLE.every(p => TASKS.every(t => firebaseData[p]?.[dayKey(i)]?.[t.id]))) count++;
-      }
-      return count;
-    }
+    async function saveTaskToFirebase(person, dayOffset, taskId, value) {
+      setSyncStatus('syncing', 'Saving…');
+      try {
+        const ref = doc(db, 'challenge', person);
+        const snap = await getDoc(ref);
+        const existing = snap.exists() ? snap.data() : {};
+        if (!existing[dayKey(dayOffset)]) existing[dayKey(dayOffset)] = {};
+        existing[dayKey(dayOffset)][taskId] = value;
+        await setDoc(ref, existing);
 
-    // ── REST DAY HELPERS ──
-    function getWeekStart(dayOffset) {
-      return Math.floor(dayOffset / 7) * 7;
-    }
-
-    function hasUsedRestDay(person, dayOffset) {
-      const weekStart = getWeekStart(dayOffset);
-      for (let i = weekStart; i < weekStart + 7; i++) {
-        if (firebaseData[person]?.[dayKey(i)]?.restday === true) return i;
-      }
-      return null;
-    }
-
-    function isRestDay(person, dayOffset) {
-      return !!(firebaseData[person]?.[dayKey(dayOffset)]?.restday);
-    }
-
-    // ── TOGGLE ──
-    window.toggleTask = async function(person, dayOffset, taskId) {
-      if (isLocked(dayOffset)) return;
-      if (currentUser && person !== currentUser) return;
-      const current = getTaskState(person, dayOffset, taskId);
-
-      // Rest day logic
-      if (taskId === 'restday') {
-        if (!current) {
-          // Trying to check ON - check if already used this week
-          const usedOn = hasUsedRestDay(person, dayOffset);
-          if (usedOn !== null && usedOn !== dayOffset) {
-            alert(`You already used your rest day this week (Day ${usedOn + 1}).`);
-            return;
-          }
+        if (value === true) {
+          const now = new Date();
+          await setDoc(doc(collection(db, 'analytics')), {
+            person, taskId, dayOffset, dayNumber: dayOffset + 1,
+            completedAt: now.toISOString(), hour: now.getHours(),
+            minute: now.getMinutes(),
+            dayOfWeek: now.toLocaleDateString('en-US', { weekday: 'long' }),
+            date: now.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+            timestamp: now.getTime(),
+          });
         }
+        setSyncStatus('synced', 'Saved');
+      } catch (e) {
+        setSyncStatus('error', 'Error saving');
+        console.error(e);
       }
+    }
 
-      if (!firebaseData[person]) firebaseData[person] = {};
-      if (!firebaseData[person][dayKey(dayOffset)]) firebaseData[person][dayKey(dayOffset)] = {};
-      firebaseData[person][dayKey(dayOffset)][taskId] = !current;
-      renderCards();
-      renderBanner();
-      await saveTaskToFirebase(person, dayOffset, taskId, !current);
-    };
+    function listenToFirebase() {
+      setSyncStatus('syncing', 'Connecting…');
+      PEOPLE.forEach(person => {
+        onSnapshot(doc(db, 'challenge', person), (snap) => {
+          firebaseData[person] = snap.exists() ? snap.data() : {};
+          renderCards();
+          renderBanner();
+          setSyncStatus('synced', 'Live');
+        }, (err) => {
+          setSyncStatus('error', 'Offline');
+          console.error(err);
+        });
+      });
+    }
 
-    // ── RENDER ──
-    window.renderBanner = function() {
+    function renderBanner() {
       const today = todayOffset();
       const currentDay = Math.min(today + 1, TOTAL_DAYS);
       const left = TOTAL_DAYS - today - 1;
@@ -552,9 +406,9 @@
         ? `<strong>${left}</strong> day${left !== 1 ? 's' : ''} to go`
         : `<strong>Challenge Complete! 🎉</strong>`;
       document.getElementById('progressFill').style.width = `${(currentDay / TOTAL_DAYS) * 100}%`;
-    };
+    }
 
-    window.renderCards = function() {
+    function renderCards() {
       const grid = document.getElementById('grid');
       const locked = isLocked(viewingDay);
       const today = todayOffset();
@@ -562,16 +416,18 @@
       document.getElementById('prevBtn').disabled = viewingDay <= 0;
       document.getElementById('nextBtn').disabled = viewingDay >= Math.min(today, TOTAL_DAYS - 1);
 
-      const dayNum = viewingDay + 1;
       document.getElementById('dateLabel').innerHTML =
-        `<span class="day-num">Day ${dayNum}</span>${getDayLabel(viewingDay)}${viewingDay === today ? ' · Today' : ''}`;
+        `<span class="day-num">Day ${viewingDay + 1}</span>${getDayLabel(viewingDay)}${viewingDay === today ? ' · Today' : ''}`;
 
-      grid.innerHTML = '';
-      const orderedPeople = currentUser
+      const ordered = currentUser && PEOPLE.includes(currentUser)
         ? [currentUser, ...PEOPLE.filter(p => p !== currentUser)]
         : PEOPLE;
-      orderedPeople.forEach(person => {
+
+      grid.innerHTML = '';
+      ordered.forEach(person => {
         const streak = getStreak(person);
+        const onRestDay = isRestDay(person, viewingDay);
+        const weekUsed = hasUsedRestDay(person, viewingDay);
         const tasksDone = TASKS.filter(t => getTaskState(person, viewingDay, t.id)).length;
         const isOther = currentUser && person !== currentUser;
 
@@ -588,36 +444,17 @@
           <div class="card-body">
             ${TASKS.map(task => {
               const done = getTaskState(person, viewingDay, task.id);
-              const onRestDay = isRestDay(person, viewingDay);
-              const weekUsed = hasUsedRestDay(person, viewingDay);
               const restUsedElsewhere = weekUsed !== null && weekUsed !== viewingDay;
-
-              // Modify labels for rest day
-              let icon = task.icon;
-              let label = task.label;
-              let extraClass = '';
-
-              if (task.id === 'steps' && onRestDay) {
-                label = '4,000 Steps';
-                icon = '🦶';
-              }
-              if (task.id === 'workout' && onRestDay) {
-                label = 'Light Workout / Stretching';
-                icon = '🧘';
-              }
-              if (task.id === 'restday') {
-                // Grey out if already used this week on another day
-                if (restUsedElsewhere) extraClass = ' locked';
-              }
-
+              let icon = task.icon, label = task.label;
+              if (task.id === 'steps' && onRestDay) { icon = '🦶'; label = '4,000 Steps'; }
+              if (task.id === 'workout' && onRestDay) { icon = '🧘'; label = 'Light Workout / Stretching'; }
               const isTaskLocked = locked || (task.id === 'restday' && restUsedElsewhere);
-
-              return \`<div class="task\${done ? ' done' : ''}\${isTaskLocked ? ' locked' : ''}\${extraClass}"
-                          data-toggle-person="\${person}" data-toggle-day="\${viewingDay}" data-toggle-task="\${task.id}">
+              return `<div class="task${done ? ' done' : ''}${isTaskLocked ? ' locked' : ''}"
+                           data-toggle-person="${person}" data-toggle-day="${viewingDay}" data-toggle-task="${task.id}">
                 <div class="task-check"><span class="checkmark">✓</span></div>
-                <div class="task-icon">\${icon}</div>
-                <div class="task-label">\${label}\${task.id === 'restday' && restUsedElsewhere ? ' <span style="font-size:0.75em;opacity:0.5">(used Day ' + (weekUsed+1) + ')</span>' : ''}</div>
-              </div>\`;
+                <div class="task-icon">${icon}</div>
+                <div class="task-label">${label}${task.id === 'restday' && restUsedElsewhere ? ` <span style="font-size:0.75em;opacity:0.5">(used Day ${weekUsed+1})</span>` : ''}</div>
+              </div>`;
             }).join('')}
           </div>
           <div class="card-footer">
@@ -627,63 +464,47 @@
 
         grid.appendChild(card);
       });
-    };
-
-    window.changeDay = function(delta) {
-      const today = todayOffset();
-      viewingDay = Math.max(0, Math.min(viewingDay + delta, today));
-      renderCards();
-    };
-
-    window.selectUser = function(person) {
-      currentUser = person;
-      localStorage.setItem(USER_KEY, person);
-      document.getElementById('pickerOverlay').classList.add('hidden');
-      document.getElementById('switchBtn').style.display = 'block';
-      renderCards();
-    };
-
-    window.showPicker = function() {
-      document.getElementById('pickerOverlay').classList.remove('hidden');
-    };
-
-    // ── INIT ──
-    viewingDay = todayOffset();
-    renderBanner();
-
-    if (currentUser) {
-      document.getElementById('pickerOverlay').classList.add('hidden');
-      document.getElementById('switchBtn').style.display = 'block';
     }
 
-    listenToFirebase();
-
-    // Event delegation — avoids module scope issues with inline onclick
+    // Event delegation
     document.addEventListener('click', function(e) {
-      const sel = e.target.closest('[data-select]');
-      if (sel) {
-        const redirect = sel.dataset.redirect;
-        if (redirect) {
-          localStorage.setItem('challenge60_user', sel.dataset.select);
-          window.location.href = redirect;
-          return;
-        }
-        selectUser(sel.dataset.select);
+      const chg = e.target.closest('#prevBtn, #nextBtn');
+      if (chg) {
+        const delta = chg.id === 'prevBtn' ? -1 : 1;
+        const today = todayOffset();
+        viewingDay = Math.max(0, Math.min(viewingDay + delta, today));
+        renderCards();
         return;
       }
-
-      const chg = e.target.closest('[data-change]');
-      if (chg) { changeDay(parseInt(chg.dataset.change)); return; }
-
-      const sw = e.target.closest('#switchBtn');
-      if (sw) { showPicker(); return; }
 
       const tog = e.target.closest('[data-toggle-task]');
       if (tog) {
-        toggleTask(tog.dataset.togglePerson, parseInt(tog.dataset.toggleDay), tog.dataset.toggleTask);
-        return;
+        const { togglePerson: person, toggleDay: day, toggleTask: taskId } = tog.dataset;
+        if (isLocked(parseInt(day))) return;
+        if (currentUser && person !== currentUser) return;
+
+        if (taskId === 'restday') {
+          const usedOn = hasUsedRestDay(person, parseInt(day));
+          if (!getTaskState(person, parseInt(day), 'restday') && usedOn !== null && usedOn !== parseInt(day)) {
+            alert(`You already used your rest day this week (Day ${usedOn + 1}).`);
+            return;
+          }
+        }
+
+        const current = getTaskState(person, parseInt(day), taskId);
+        if (!firebaseData[person]) firebaseData[person] = {};
+        if (!firebaseData[person][dayKey(parseInt(day))]) firebaseData[person][dayKey(parseInt(day))] = {};
+        firebaseData[person][dayKey(parseInt(day))][taskId] = !current;
+        renderCards();
+        renderBanner();
+        saveTaskToFirebase(person, parseInt(day), taskId, !current);
       }
     });
+
+    // Init
+    viewingDay = todayOffset();
+    renderBanner();
+    listenToFirebase();
   </script>
 </body>
 </html>
