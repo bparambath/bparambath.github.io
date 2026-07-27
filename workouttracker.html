@@ -19,6 +19,8 @@
       --meegan:   #f4a7c0;
       --princu:   #f0a040;
       --ryanne:   #70c870;
+      --nicki:    #b478dc;
+      --raj:      #50a0dc;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -169,8 +171,9 @@
     }
 
     /* ── CARDS GRID ── */
-    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
 
     /* ── PERSON CARD ── */
     .card {
@@ -200,6 +203,14 @@
     .card[data-person="RyAnne"] .card-header { border-top: 3px solid var(--ryanne); }
     .card[data-person="RyAnne"] .card-name  { color: var(--ryanne); }
     .card[data-person="RyAnne"] .card-streak strong { color: var(--ryanne); }
+    .card[data-person="Nicki"]   .card-header { border-top: 3px solid var(--nicki); }
+    .card[data-person="Nicki"]   .card-name   { color: var(--nicki); }
+    .card[data-person="Nicki"]   .card-streak strong { color: var(--nicki); }
+    .card[data-person="Nicki"]   .task.done .task-check { background: var(--nicki); }
+    .card[data-person="Raj"]     .card-header { border-top: 3px solid var(--raj); }
+    .card[data-person="Raj"]     .card-name   { color: var(--raj); }
+    .card[data-person="Raj"]     .card-streak strong { color: var(--raj); }
+    .card[data-person="Raj"]     .task.done .task-check { background: var(--raj); }
 
     .card-body { padding: 10px 0; }
 
@@ -310,11 +321,11 @@
         <div class="picker-avatar">🌿</div>
         <div class="picker-name">RyAnne</div>
       </button>
-      <button class="picker-btn" data-person="Nicki" data-select="Nicki" data-redirect="nikkiraj.html">
+      <button class="picker-btn" data-person="Nicki" data-select="Nicki">
         <div class="picker-avatar">✨</div>
         <div class="picker-name">Nicki</div>
       </button>
-      <button class="picker-btn" data-person="Raj" data-select="Raj" data-redirect="nikkiraj.html">
+      <button class="picker-btn" data-person="Raj" data-select="Raj">
         <div class="picker-avatar">🔥</div>
         <div class="picker-name">Raj</div>
       </button>
@@ -324,9 +335,6 @@
   <nav>
     <a class="nav-brand" href="index.html">Meegan's Site</a>
     <ul class="nav-links">
-      <li><a href="index.html#about">This Year!</a></li>
-      <li><a href="index.html#projects">Past Years!!</a></li>
-      <li><a href="books.html">Books 📚</a></li>
       <li><a href="workouttracker.html" class="active">Challenge 💪</a></li>
     </ul>
   </nav>
@@ -378,7 +386,7 @@
     // ── CONFIG ──
     const CHALLENGE_START = '2026-07-20';
     const TOTAL_DAYS = 60;
-    const PEOPLE = ['Benju', 'Meegan', 'Princu', 'RyAnne'];
+    const PEOPLE = ['Benju', 'Meegan', 'Princu', 'RyAnne', 'Nicki', 'Raj'];
     const TASKS = [
       { id: 'water',      icon: '💧', label: '10 Cups of Water' },
       { id: 'steps',      icon: '👟', label: '8,000 Steps' },
@@ -505,20 +513,26 @@
     }
 
     // ── REST DAY HELPERS ──
-    function getWeekStart(dayOffset) {
-      return Math.floor(dayOffset / 7) * 7;
+    function isRestDay(person, dayOffset) {
+      return !!(firebaseData[person]?.[dayKey(dayOffset)]?.restday);
     }
 
+    // Returns the day offset of the most recent rest day that is within 6 days before dayOffset,
+    // or dayOffset itself if it is a rest day. Returns null if no rest day blocks this day.
     function hasUsedRestDay(person, dayOffset) {
-      const weekStart = getWeekStart(dayOffset);
-      for (let i = weekStart; i < weekStart + 7; i++) {
+      // Check the day itself and the 6 days prior
+      for (let i = dayOffset; i >= Math.max(0, dayOffset - 6); i--) {
         if (firebaseData[person]?.[dayKey(i)]?.restday === true) return i;
       }
       return null;
     }
 
-    function isRestDay(person, dayOffset) {
-      return !!(firebaseData[person]?.[dayKey(dayOffset)]?.restday);
+    function isRestDayLocked(person, dayOffset) {
+      // Can't use rest day if one was used in the previous 6 days (not counting today)
+      const usedOn = hasUsedRestDay(person, dayOffset);
+      if (usedOn === null) return false;
+      if (usedOn === dayOffset) return false; // it's today's own rest day, can untick
+      return true; // used within last 6 days
     }
 
     // ── TOGGLE ──
@@ -528,14 +542,11 @@
       const current = getTaskState(person, dayOffset, taskId);
 
       // Rest day logic
-      if (taskId === 'restday') {
-        if (!current) {
-          // Trying to check ON - check if already used this week
+      if (taskId === 'restday' && !current) {
+        if (isRestDayLocked(person, dayOffset)) {
           const usedOn = hasUsedRestDay(person, dayOffset);
-          if (usedOn !== null && usedOn !== dayOffset) {
-            alert(`You already used your rest day this week (Day ${usedOn + 1}).`);
-            return;
-          }
+          alert('Rest day already used on Day ' + (usedOn + 1) + '. Next rest day available on Day ' + (usedOn + 7) + '.');
+          return;
         }
       }
 
@@ -580,7 +591,6 @@
         const tasksDone = TASKS.filter(t => getTaskState(person, viewingDay, t.id)).length;
         const isOther = currentUser && person !== currentUser;
         const onRestDay = isRestDay(person, viewingDay);
-        const weekUsed = hasUsedRestDay(person, viewingDay);
 
         const card = document.createElement('div');
         card.className = 'card' + (locked ? ' is-locked' : '') + (isOther ? ' other-user' : '');
@@ -602,17 +612,17 @@
         streakEl.innerHTML = streak > 0 ? '<strong>' + streak + '</strong> day streak 🔥' : 'No streak yet';
 
         // Rest day button
-        const restUsedThisWeek = hasUsedRestDay(person, viewingDay);
-        const restUsedElsewhere = restUsedThisWeek !== null && restUsedThisWeek !== viewingDay;
         const rdActive = isRestDay(person, viewingDay);
+        const rdLocked = isRestDayLocked(person, viewingDay);
+        const rdUsedOn = rdLocked ? hasUsedRestDay(person, viewingDay) : null;
         const rdBtn = document.createElement('button');
         rdBtn.className = 'rest-day-btn' + (rdActive ? ' active' : '');
-        rdBtn.disabled = locked || restUsedElsewhere || (isOther);
+        rdBtn.disabled = locked || rdLocked || isOther;
         rdBtn.dataset.togglePerson = person;
         rdBtn.dataset.toggleDay = viewingDay;
         rdBtn.dataset.toggleTask = 'restday';
         rdBtn.innerHTML = '<span class="rd-icon">😴</span>' + (rdActive ? 'Rest Day ✓' : 'Rest Day');
-        if (restUsedElsewhere) rdBtn.title = 'Used on Day ' + (restUsedThisWeek + 1);
+        if (rdLocked) rdBtn.title = 'Used Day ' + (rdUsedOn + 1) + ' — next available Day ' + (rdUsedOn + 7);
 
         headerRight.appendChild(streakEl);
         headerRight.appendChild(rdBtn);
@@ -704,24 +714,10 @@
       document.getElementById('switchBtn').style.display = 'block';
     }
 
-    // Auto-show picker if redirected from nikkiraj
-    if (new URLSearchParams(window.location.search).get('picker') === '1') {
-      localStorage.removeItem(USER_KEY);
-      currentUser = null;
-      document.getElementById('pickerOverlay').classList.remove('hidden');
-      document.getElementById('switchBtn').style.display = 'none';
-    }
-
     // Event delegation — avoids module scope issues with inline onclick
     document.addEventListener('click', function(e) {
       const sel = e.target.closest('[data-select]');
       if (sel) {
-        const redirect = sel.dataset.redirect;
-        if (redirect) {
-          localStorage.setItem('challenge60_user', sel.dataset.select);
-          window.location.href = redirect;
-          return;
-        }
         selectUser(sel.dataset.select);
         return;
       }
