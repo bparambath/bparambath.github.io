@@ -273,12 +273,18 @@
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
     /* ── REST DAY ── */
-    .task.rest-active .task-icon { filter: grayscale(0); }
-    .card.rest-day-active .card-header { background: rgba(255,255,255,0.02); }
-    .card.rest-day-active .card-name::after {
-      content: ' 😴';
-      font-size: 0.9rem;
+    .rest-day-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: none; border: 1px solid var(--border);
+      border-radius: 3px; padding: 4px 10px;
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer; transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
     }
+    .rest-day-btn:hover:not(:disabled) { border-color: #aaa; color: var(--text); }
+    .rest-day-btn.active { background: rgba(255,220,100,0.1); border-color: rgba(255,220,100,0.4); color: #f0c040; }
+    .rest-day-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .rest-day-btn .rd-icon { font-size: 0.9rem; }
   </style>
 </head>
 <body>
@@ -380,7 +386,6 @@
       { id: 'nodrink',    icon: '🚫', label: 'No Drinking' },
       { id: 'nodelivery', icon: '🥡', label: 'No Delivery' },
       { id: 'workout',    icon: '🏋️', label: 'Active Workout' },
-      { id: 'restday',    icon: '😴', label: 'Rest Day' },
     ];
 
     const USER_KEY = 'challenge60_user';
@@ -584,8 +589,35 @@
         // Header
         const header = document.createElement('div');
         header.className = 'card-header';
-        header.innerHTML = '<div class="card-name">' + person + '</div>' +
-          '<div class="card-streak">' + (streak > 0 ? '<strong>' + streak + '</strong> day streak 🔥' : 'No streak yet') + '</div>';
+
+        const nameEl = document.createElement('div');
+        nameEl.className = 'card-name';
+        nameEl.textContent = person;
+
+        const headerRight = document.createElement('div');
+        headerRight.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:6px';
+
+        const streakEl = document.createElement('div');
+        streakEl.className = 'card-streak';
+        streakEl.innerHTML = streak > 0 ? '<strong>' + streak + '</strong> day streak 🔥' : 'No streak yet';
+
+        // Rest day button
+        const restUsedThisWeek = hasUsedRestDay(person, viewingDay);
+        const restUsedElsewhere = restUsedThisWeek !== null && restUsedThisWeek !== viewingDay;
+        const rdActive = isRestDay(person, viewingDay);
+        const rdBtn = document.createElement('button');
+        rdBtn.className = 'rest-day-btn' + (rdActive ? ' active' : '');
+        rdBtn.disabled = locked || restUsedElsewhere || (isOther);
+        rdBtn.dataset.togglePerson = person;
+        rdBtn.dataset.toggleDay = viewingDay;
+        rdBtn.dataset.toggleTask = 'restday';
+        rdBtn.innerHTML = '<span class="rd-icon">😴</span>' + (rdActive ? 'Rest Day ✓' : 'Rest Day');
+        if (restUsedElsewhere) rdBtn.title = 'Used on Day ' + (restUsedThisWeek + 1);
+
+        headerRight.appendChild(streakEl);
+        headerRight.appendChild(rdBtn);
+        header.appendChild(nameEl);
+        header.appendChild(headerRight);
         card.appendChild(header);
 
         // Lock overlay
@@ -600,8 +632,7 @@
 
         TASKS.forEach(task => {
           const done = getTaskState(person, viewingDay, task.id);
-          const restUsedElsewhere = weekUsed !== null && weekUsed !== viewingDay;
-          const isTaskLocked = locked || (task.id === 'restday' && restUsedElsewhere);
+          const isTaskLocked = locked;
 
           let icon = task.icon;
           let label = task.label;
@@ -625,12 +656,7 @@
           const labelEl = document.createElement('div');
           labelEl.className = 'task-label';
           labelEl.textContent = label;
-          if (task.id === 'restday' && restUsedElsewhere) {
-            const note = document.createElement('span');
-            note.style.cssText = 'font-size:0.75em;opacity:0.5';
-            note.textContent = ' (used Day ' + (weekUsed + 1) + ')';
-            labelEl.appendChild(note);
-          }
+
 
           row.appendChild(check);
           row.appendChild(iconEl);
@@ -676,6 +702,14 @@
     if (currentUser) {
       document.getElementById('pickerOverlay').classList.add('hidden');
       document.getElementById('switchBtn').style.display = 'block';
+    }
+
+    // Auto-show picker if redirected from nikkiraj
+    if (new URLSearchParams(window.location.search).get('picker') === '1') {
+      localStorage.removeItem(USER_KEY);
+      currentUser = null;
+      document.getElementById('pickerOverlay').classList.remove('hidden');
+      document.getElementById('switchBtn').style.display = 'none';
     }
 
     // Event delegation — avoids module scope issues with inline onclick
