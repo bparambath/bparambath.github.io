@@ -562,68 +562,90 @@
       document.getElementById('prevBtn').disabled = viewingDay <= 0;
       document.getElementById('nextBtn').disabled = viewingDay >= Math.min(today, TOTAL_DAYS - 1);
 
-      const dayNum = viewingDay + 1;
       document.getElementById('dateLabel').innerHTML =
-        `<span class="day-num">Day ${dayNum}</span>${getDayLabel(viewingDay)}${viewingDay === today ? ' · Today' : ''}`;
+        '<span class="day-num">Day ' + (viewingDay + 1) + '</span>' + getDayLabel(viewingDay) + (viewingDay === today ? ' · Today' : '');
 
       grid.innerHTML = '';
       const orderedPeople = currentUser
         ? [currentUser, ...PEOPLE.filter(p => p !== currentUser)]
         : PEOPLE;
+
       orderedPeople.forEach(person => {
         const streak = getStreak(person);
         const tasksDone = TASKS.filter(t => getTaskState(person, viewingDay, t.id)).length;
         const isOther = currentUser && person !== currentUser;
+        const onRestDay = isRestDay(person, viewingDay);
+        const weekUsed = hasUsedRestDay(person, viewingDay);
 
         const card = document.createElement('div');
-        card.className = `card${locked ? ' is-locked' : ''}${isOther ? ' other-user' : ''}`;
+        card.className = 'card' + (locked ? ' is-locked' : '') + (isOther ? ' other-user' : '');
         card.dataset.person = person;
 
-        card.innerHTML = `
-          <div class="card-header">
-            <div class="card-name">${person}</div>
-            <div class="card-streak">${streak > 0 ? `<strong>${streak}</strong> day streak 🔥` : 'No streak yet'}</div>
-          </div>
-          <div class="locked-overlay">🔒 Day locked</div>
-          <div class="card-body">
-            ${TASKS.map(task => {
-              const done = getTaskState(person, viewingDay, task.id);
-              const onRestDay = isRestDay(person, viewingDay);
-              const weekUsed = hasUsedRestDay(person, viewingDay);
-              const restUsedElsewhere = weekUsed !== null && weekUsed !== viewingDay;
+        // Header
+        const header = document.createElement('div');
+        header.className = 'card-header';
+        header.innerHTML = '<div class="card-name">' + person + '</div>' +
+          '<div class="card-streak">' + (streak > 0 ? '<strong>' + streak + '</strong> day streak 🔥' : 'No streak yet') + '</div>';
+        card.appendChild(header);
 
-              // Modify labels for rest day
-              let icon = task.icon;
-              let label = task.label;
-              let extraClass = '';
+        // Lock overlay
+        const lockOverlay = document.createElement('div');
+        lockOverlay.className = 'locked-overlay';
+        lockOverlay.textContent = '🔒 Day locked';
+        card.appendChild(lockOverlay);
 
-              if (task.id === 'steps' && onRestDay) {
-                label = '4,000 Steps';
-                icon = '🦶';
-              }
-              if (task.id === 'workout' && onRestDay) {
-                label = 'Light Workout / Stretching';
-                icon = '🧘';
-              }
-              if (task.id === 'restday') {
-                // Grey out if already used this week on another day
-                if (restUsedElsewhere) extraClass = ' locked';
-              }
+        // Body + tasks
+        const body = document.createElement('div');
+        body.className = 'card-body';
 
-              const isTaskLocked = locked || (task.id === 'restday' && restUsedElsewhere);
+        TASKS.forEach(task => {
+          const done = getTaskState(person, viewingDay, task.id);
+          const restUsedElsewhere = weekUsed !== null && weekUsed !== viewingDay;
+          const isTaskLocked = locked || (task.id === 'restday' && restUsedElsewhere);
 
-              return \`<div class="task\${done ? ' done' : ''}\${isTaskLocked ? ' locked' : ''}\${extraClass}"
-                          data-toggle-person="\${person}" data-toggle-day="\${viewingDay}" data-toggle-task="\${task.id}">
-                <div class="task-check"><span class="checkmark">✓</span></div>
-                <div class="task-icon">\${icon}</div>
-                <div class="task-label">\${label}\${task.id === 'restday' && restUsedElsewhere ? ' <span style="font-size:0.75em;opacity:0.5">(used Day ' + (weekUsed+1) + ')</span>' : ''}</div>
-              </div>\`;
-            }).join('')}
-          </div>
-          <div class="card-footer">
-            <div class="card-tally"><strong>${tasksDone}</strong> / ${TASKS.length} done</div>
-            <div class="lock-note">${locked ? '🔒 locked' : 'Locks tomorrow night'}</div>
-          </div>`;
+          let icon = task.icon;
+          let label = task.label;
+          if (task.id === 'steps' && onRestDay) { icon = '🦶'; label = '4,000 Steps'; }
+          if (task.id === 'workout' && onRestDay) { icon = '🧘'; label = 'Light Workout / Stretching'; }
+
+          const row = document.createElement('div');
+          row.className = 'task' + (done ? ' done' : '') + (isTaskLocked ? ' locked' : '');
+          row.dataset.togglePerson = person;
+          row.dataset.toggleDay = viewingDay;
+          row.dataset.toggleTask = task.id;
+
+          const check = document.createElement('div');
+          check.className = 'task-check';
+          check.innerHTML = '<span class="checkmark">✓</span>';
+
+          const iconEl = document.createElement('div');
+          iconEl.className = 'task-icon';
+          iconEl.textContent = icon;
+
+          const labelEl = document.createElement('div');
+          labelEl.className = 'task-label';
+          labelEl.textContent = label;
+          if (task.id === 'restday' && restUsedElsewhere) {
+            const note = document.createElement('span');
+            note.style.cssText = 'font-size:0.75em;opacity:0.5';
+            note.textContent = ' (used Day ' + (weekUsed + 1) + ')';
+            labelEl.appendChild(note);
+          }
+
+          row.appendChild(check);
+          row.appendChild(iconEl);
+          row.appendChild(labelEl);
+          body.appendChild(row);
+        });
+
+        card.appendChild(body);
+
+        // Footer
+        const footer = document.createElement('div');
+        footer.className = 'card-footer';
+        footer.innerHTML = '<div class="card-tally"><strong>' + tasksDone + '</strong> / ' + TASKS.length + ' done</div>' +
+          '<div class="lock-note">' + (locked ? '🔒 locked' : 'Locks tomorrow night') + '</div>';
+        card.appendChild(footer);
 
         grid.appendChild(card);
       });
@@ -656,8 +678,6 @@
       document.getElementById('switchBtn').style.display = 'block';
     }
 
-    listenToFirebase();
-
     // Event delegation — avoids module scope issues with inline onclick
     document.addEventListener('click', function(e) {
       const sel = e.target.closest('[data-select]');
@@ -684,6 +704,8 @@
         return;
       }
     });
+
+    try { listenToFirebase(); } catch(e) { console.error(e); setSyncStatus("error","Offline"); }
   </script>
 </body>
 </html>
