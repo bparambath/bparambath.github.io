@@ -287,17 +287,18 @@
     .nia-banner {
       display: none;
       text-align: center;
-      padding: 12px 20px 0;
-      margin-bottom: -8px;
+      padding: 14px 0 4px;
+      width: 100%;
     }
     .nia-banner.visible { display: block; }
     .nia-banner img {
-      height: 72px;
-      width: auto;
+      height: 64px;
+      width: 64px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid rgba(180,120,220,0.4);
-      box-shadow: 0 0 16px rgba(180,120,220,0.2);
+      object-position: center top;
+      border: 2px solid rgba(180,120,220,0.5);
+      box-shadow: 0 0 18px rgba(180,120,220,0.25);
     }
 
     /* ── REST DAY ── */
@@ -367,12 +368,12 @@
   </div>
 
   <div class="page">
-    <div class="nia-banner" id="niaBanner">
-      <img src="assets/img/niajunnie.jpg" alt="Nia" />
-    </div>
     <div class="page-header">
       <div class="challenge-title"><em>60 Day</em> Workout Challenge</div>
       <div class="challenge-sub">Track · Commit · Conquer</div>
+      <div class="nia-banner" id="niaBanner">
+        <img src="assets/img/niajunnie.jpg" alt="Nia" />
+      </div>
     </div>
     <div class="date-nav">
       <button class="date-btn" id="prevBtn" data-change="-1">‹</button>
