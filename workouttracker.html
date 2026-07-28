@@ -283,6 +283,23 @@
     .sync-dot.error::before { background: #e05050; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
+    /* ── NIA BANNER ── */
+    .nia-banner {
+      display: none;
+      text-align: center;
+      padding: 12px 20px 0;
+      margin-bottom: -8px;
+    }
+    .nia-banner.visible { display: block; }
+    .nia-banner img {
+      height: 72px;
+      width: auto;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(180,120,220,0.4);
+      box-shadow: 0 0 16px rgba(180,120,220,0.2);
+    }
+
     /* ── REST DAY ── */
     .rest-day-btn {
       display: flex; align-items: center; gap: 6px;
@@ -350,6 +367,9 @@
   </div>
 
   <div class="page">
+    <div class="nia-banner" id="niaBanner">
+      <img src="assets/img/niajunnie.jpg" alt="Nia" />
+    </div>
     <div class="page-header">
       <div class="challenge-title"><em>60 Day</em> Workout Challenge</div>
       <div class="challenge-sub">Track · Commit · Conquer</div>
@@ -698,8 +718,18 @@
       localStorage.setItem(USER_KEY, person);
       document.getElementById('pickerOverlay').classList.add('hidden');
       document.getElementById('switchBtn').style.display = 'block';
+      updateNiaBanner(person);
       renderCards();
     };
+
+    function updateNiaBanner(person) {
+      const banner = document.getElementById('niaBanner');
+      if (person === 'Nicki' || person === 'Raj') {
+        banner.classList.add('visible');
+      } else {
+        banner.classList.remove('visible');
+      }
+    }
 
     window.showPicker = function() {
       document.getElementById('pickerOverlay').classList.remove('hidden');
