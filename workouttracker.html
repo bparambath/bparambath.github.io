@@ -742,7 +742,9 @@
     if (currentUser) {
       document.getElementById('pickerOverlay').classList.add('hidden');
       document.getElementById('switchBtn').style.display = 'block';
+      updateNiaBanner(currentUser);
     }
+    renderCards();
 
     // Event delegation — avoids module scope issues with inline onclick
     document.addEventListener('click', function(e) {
