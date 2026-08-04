@@ -258,6 +258,96 @@
     }
     .card.is-locked .locked-overlay { display: block; }
 
+    /* ── STATS BUTTON IN NAV ── */
+    .stats-nav-btn {
+      background: none; border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 5px 10px; cursor: pointer; transition: all 0.2s;
+    }
+    .stats-nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── STATS MODAL ── */
+    .stats-overlay {
+      position: fixed; inset: 0; z-index: 400;
+      background: rgba(8,9,12,0.92);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 70px 16px 24px;
+      overflow-y: auto;
+    }
+    .stats-overlay.hidden { display: none; }
+    .stats-modal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; width: 100%; max-width: 860px;
+      padding: 28px 24px 32px; position: relative;
+    }
+    .stats-modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .stats-modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem; letter-spacing: 0.08em; color: var(--text);
+    }
+    .stats-modal-title em { color: var(--gold); font-style: normal; }
+    .stats-close {
+      background: none; border: 1px solid var(--border);
+      border-radius: 3px; color: var(--muted);
+      width: 30px; height: 30px; cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s; flex-shrink: 0;
+    }
+    .stats-close:hover { border-color: var(--text); color: var(--text); }
+    .stats-legend {
+      display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .legend-dot.complete { background: #4caf6e; }
+    .legend-dot.missed   { background: #c0392b; }
+    .legend-dot.rest     { background: #9b59b6; }
+    .legend-dot.future   { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    }
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+    .stats-person { display: flex; flex-direction: column; gap: 8px; }
+    .stats-person-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: 0.08em;
+      text-align: center; padding-bottom: 6px; border-bottom: 2px solid;
+    }
+    .stats-person[data-person="Benju"]  .stats-person-name { color: var(--benju);  border-color: var(--benju); }
+    .stats-person[data-person="Meegan"] .stats-person-name { color: var(--meegan); border-color: var(--meegan); }
+    .stats-person[data-person="Princu"] .stats-person-name { color: var(--princu); border-color: var(--princu); }
+    .stats-person[data-person="RyAnne"] .stats-person-name { color: var(--ryanne); border-color: var(--ryanne); }
+    .stats-person-meta {
+      text-align: center; font-size: 0.7rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 2px;
+    }
+    .stats-person-meta strong { color: var(--text); font-size: 0.9rem; font-family: 'Bebas Neue', sans-serif; }
+    .days-boxes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
+    .day-box {
+      aspect-ratio: 1; border-radius: 3px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.55rem; color: rgba(255,255,255,0.2);
+      font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;
+      transition: transform 0.1s; cursor: default; position: relative;
+    }
+    .day-box:hover { transform: scale(1.2); z-index: 2; }
+    .day-box.complete { background: #2d7a4a; border-color: #4caf6e; color: rgba(255,255,255,0.6); }
+    .day-box.missed   { background: #7a2020; border-color: #c0392b; color: rgba(255,255,255,0.6); }
+    .day-box.rest     { background: #5b2d8a; border-color: #9b59b6; color: rgba(255,255,255,0.6); }
+    .day-box.future   { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.05); color: rgba(255,255,255,0.1); }
+
     /* ── SWITCH USER ── */
     .switch-user-btn {
       position: fixed; bottom: 20px; right: 20px; z-index: 300;
@@ -338,6 +428,7 @@
     <a class="nav-brand" href="index.html">Meegan's Site</a>
     <ul class="nav-links">
       <li><a href="workouttracker.html" class="active">Challenge 💪</a></li>
+      <li><button class="stats-nav-btn" id="statsBtn">Stats 📊</button></li>
     </ul>
   </nav>
 
@@ -362,6 +453,22 @@
       <button class="date-btn" id="nextBtn" data-change="1">›</button>
     </div>
     <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="stats-overlay hidden" id="statsOverlay">
+    <div class="stats-modal">
+      <div class="stats-modal-header">
+        <div class="stats-modal-title"><em>60 Day</em> Progress</div>
+        <button class="stats-close" id="statsClose">✕</button>
+      </div>
+      <div class="stats-legend">
+        <div class="legend-item"><div class="legend-dot complete"></div>Complete</div>
+        <div class="legend-item"><div class="legend-dot missed"></div>Missed</div>
+        <div class="legend-item"><div class="legend-dot rest"></div>Rest Day</div>
+        <div class="legend-item"><div class="legend-dot future"></div>Upcoming</div>
+      </div>
+      <div class="stats-grid" id="statsGrid"></div>
+    </div>
   </div>
 
   <button class="switch-user-btn" id="switchBtn" style="display:none">Switch User</button>
@@ -561,6 +668,49 @@
     };
 
     // ── RENDER ──
+    function renderStats() {
+      const grid = document.getElementById('statsGrid');
+      grid.innerHTML = '';
+      const today = todayOffset();
+      const MAIN_PEOPLE = ['Benju', 'Meegan', 'Princu', 'RyAnne'];
+      MAIN_PEOPLE.forEach(function(person) {
+        const col = document.createElement('div');
+        col.className = 'stats-person';
+        col.dataset.person = person;
+        let completedCount = 0;
+        for (let i = 0; i <= today; i++) {
+          const tasks = firebaseData[person] && firebaseData[person][dayKey(i)] ? firebaseData[person][dayKey(i)] : {};
+          if (TASKS.every(function(t) { return tasks[t.id]; })) completedCount++;
+        }
+        const nameEl = document.createElement('div');
+        nameEl.className = 'stats-person-name';
+        nameEl.textContent = person;
+        const metaEl = document.createElement('div');
+        metaEl.className = 'stats-person-meta';
+        metaEl.innerHTML = '<strong>' + completedCount + '</strong> / ' + Math.min(today + 1, TOTAL_DAYS) + ' days done';
+        const boxes = document.createElement('div');
+        boxes.className = 'days-boxes';
+        for (let i = 0; i < TOTAL_DAYS; i++) {
+          const box = document.createElement('div');
+          box.className = 'day-box';
+          box.textContent = i + 1;
+          if (i > today) {
+            box.classList.add('future');
+          } else if (isRestDay(person, i)) {
+            box.classList.add('rest');
+          } else {
+            const tasks = firebaseData[person] && firebaseData[person][dayKey(i)] ? firebaseData[person][dayKey(i)] : {};
+            box.classList.add(TASKS.every(function(t) { return tasks[t.id]; }) ? 'complete' : 'missed');
+          }
+          boxes.appendChild(box);
+        }
+        col.appendChild(nameEl);
+        col.appendChild(metaEl);
+        col.appendChild(boxes);
+        grid.appendChild(col);
+      });
+    }
+
     window.renderBanner = function() {
       const today = todayOffset();
       const currentDay = Math.min(today + 1, TOTAL_DAYS);
@@ -731,6 +881,20 @@
 
       const sw = e.target.closest('#switchBtn');
       if (sw) { showPicker(); return; }
+
+      if (e.target.closest('#statsBtn')) {
+        renderStats();
+        document.getElementById('statsOverlay').classList.remove('hidden');
+        return;
+      }
+      if (e.target.closest('#statsClose')) {
+        document.getElementById('statsOverlay').classList.add('hidden');
+        return;
+      }
+      if (e.target.closest('.stats-overlay') && !e.target.closest('.stats-modal')) {
+        document.getElementById('statsOverlay').classList.add('hidden');
+        return;
+      }
 
       const tog = e.target.closest('[data-toggle-task]');
       if (tog) {
