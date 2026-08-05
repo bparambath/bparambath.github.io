@@ -11693,3 +11693,392 @@ body {
 .footer {
   padding: 5rem 0;
 }
+/* ==========================================================================
+   Birthday Gift Verification Sequence
+   Added incrementally on top of existing theme — reuses site palette:
+   gold #FFD700, teal #64a19d / #50817e, blue #89CFF0, text-mainbody black
+   ========================================================================== */
+
+#giftGateWrapper {
+  max-width: 600px;
+  margin: 3rem auto 0 auto;
+  padding: 0 1rem;
+}
+
+/* ---- Verification screen shell ---- */
+.verification-screen {
+  background-color: #fffdf5;
+  border: 3px solid #FFD700;
+  border-radius: 18px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.verification-screen.fade-out {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
+
+.verification-title {
+  color: #50817e;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.verification-subtitle {
+  color: black;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.verification-step {
+  animation: fadeInStep 0.5s ease;
+}
+.verification-step[hidden] {
+  display: none;
+}
+
+@keyframes fadeInStep {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-label {
+  color: #64a19d;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+}
+
+.step-heading {
+  color: black;
+  margin-bottom: 1rem;
+}
+
+.step-instructions {
+  color: #6c757d;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.step-counter {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #50817e;
+  margin-top: 1rem;
+}
+
+.step-success-msg {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #50817e;
+  margin-top: 1rem;
+  animation: fadeInStep 0.5s ease;
+}
+
+/* ---- Step 1: Catch Paisu ---- */
+.paisu-game-area {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: 260px;
+  margin: 0 auto;
+  background-color: #f0d892;
+  border: 3px dashed #64a19d;
+  border-radius: 14px;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.paisu-img {
+  position: absolute;
+  width: 64px;
+  height: auto;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  top: 20px;
+  left: 20px;
+}
+
+.paisu-img.pulse {
+  animation: paisuPulse 0.25s ease;
+}
+
+@keyframes paisuPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4) rotate(8deg); }
+  100% { transform: scale(1); }
+}
+
+/* ---- Step 2: Finish the Lyrics ---- */
+.lyric-input {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.6rem 1rem;
+  border: 2px solid #64a19d;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto 1rem auto;
+  display: block;
+}
+.lyric-input:focus {
+  outline: none;
+  border-color: #50817e;
+  box-shadow: 0 0 0 0.2rem rgba(100, 161, 157, 0.25);
+}
+
+.lyric-submit-btn {
+  display: inline-block;
+}
+
+.lyric-check-mark {
+  display: inline-block;
+  color: #2e7d32;
+  font-size: 2rem;
+  margin-top: 1rem;
+  animation: checkPop 0.4s ease;
+}
+
+@keyframes checkPop {
+  0% { opacity: 0; transform: scale(0.3); }
+  60% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ---- Step 3: Relationship Timeline ---- */
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.timeline-card {
+  background-color: #89CFF0;
+  color: black;
+  font-weight: 700;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  border: 2px solid #50817e;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.timeline-card.dragging {
+  opacity: 0.6;
+  cursor: grabbing;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  background-color: #FFD700;
+}
+
+.timeline-card.correct-slot {
+  background-color: #b7e4c7;
+}
+
+/* ---- Access Granted ---- */
+.access-granted-screen[hidden] {
+  display: none;
+}
+
+.verifying-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #64a19d;
+  margin-bottom: 1rem;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.checklist-item {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #50817e;
+  opacity: 0;
+  transform: translateX(-10px);
+  margin-bottom: 0.5rem;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.checklist-item.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.access-granted-text {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #FFD700;
+  text-shadow: 0 0 8px rgba(80, 129, 126, 0.4);
+  animation: fadeInStep 0.6s ease;
+}
+.access-granted-text[hidden] {
+  display: none;
+}
+
+/* ---- Gift Content / Reveal ---- */
+.gift-content {
+  margin-top: 2rem;
+  text-align: center;
+  animation: fadeInStep 0.8s ease;
+}
+.gift-content[hidden] {
+  display: none;
+}
+
+.presents-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.present {
+  cursor: pointer;
+  text-align: center;
+}
+
+.present-box {
+  position: relative;
+  width: 130px;
+  height: 110px;
+  background-color: #64a19d;
+  border-radius: 8px;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.present-lid {
+  position: absolute;
+  top: -18px;
+  left: -8px;
+  right: -8px;
+  height: 24px;
+  background-color: #50817e;
+  border-radius: 6px;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform-origin: left center;
+}
+
+.present-ribbon-v {
+  position: absolute;
+  top: -18px;
+  bottom: 0;
+  left: 50%;
+  width: 16px;
+  margin-left: -8px;
+  background-color: #FFD700;
+}
+
+.present-ribbon-h {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 38%;
+  height: 16px;
+  background-color: #FFD700;
+}
+
+.present:hover .present-box {
+  transform: translateY(-4px);
+}
+
+.present.opened .present-box {
+  transform: scale(1.08);
+}
+
+.present.opened .present-lid {
+  transform: translateY(-40px) rotate(-25deg);
+  opacity: 0;
+}
+
+.present-label {
+  margin-top: 0.75rem;
+  font-weight: 700;
+  color: black;
+}
+
+.gift-reveal-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.gift-reveal-card {
+  background-color: #fffdf5;
+  border: 2px solid #FFD700;
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  max-width: 260px;
+  animation: fadeInStep 0.6s ease;
+}
+.gift-reveal-card[hidden] {
+  display: none;
+}
+
+.gift-reveal-card h4 {
+  color: #50817e;
+  margin-bottom: 0.5rem;
+}
+
+.gift-reveal-card p {
+  color: black;
+  margin: 0;
+}
+
+/* ---- Confetti ---- */
+.confetti-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 14px;
+  opacity: 0.9;
+  animation-name: confettiFall;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(320px) rotate(360deg); opacity: 0; }
+}
+
+/* ---- Mobile responsiveness ---- */
+@media (max-width: 576px) {
+  .verification-screen {
+    padding: 1.5rem 1rem;
+  }
+  .paisu-game-area {
+    height: 220px;
+  }
+  .present-box {
+    width: 105px;
+    height: 90px;
+  }
+  .presents-row {
+    gap: 1.5rem;
+  }
+}

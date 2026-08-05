@@ -39,7 +39,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
                         <h1 class="mx-auto my-0 text-uppercase">Happy Birthday Meegan!</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">27 time!! P.S You better not be looking at this letter early :(</h2>
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">28 time!! P.S You better not be looking at this letter early :(</h2>
                         <a class="btn btn-primary" href="#about">Lets goooo!</a>
                     </div>
                 </div>
@@ -50,45 +50,125 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="text-mainbody mb-4">Hey there bb girl! Welcome to Your Year 27 Birthday Letter!</h2>
+                        <h2 class="text-mainbody mb-4">Hey there bb girl! Welcome to Your Year 28 Birthday Letter!</h2>
                         <p class="text-mainbody">
-                            Hi Meegan, My Fianceeee!
+                            hi baby! aka my fiancée happy 28th birthday!! I love you so much and am so happy to be celebrating your 8th birthday in a row with you!!
+                            I've been there for 2/7ths of your bdays! Celebrating another birthday together almost feels like deja vu, except somehow every year is
+                            even better. so i just want you to know how special you are to me. Every day when i wake up im so thankful to have a special person like
+                            you in my life. i can't believe i got so lucky, youre definitely good 4 me. you make me feel so happy and loved and i could not imagine
+                            life without you.
                         </p>
                         <p class="text-mainbody">
-                            Hi baby – happy birthday to the greatest person in the entire world. Again, after much long awaiting your day is finally here! 
-                            Enjoying the big 27 with the company of our family and friends is pretty fun huh! I hope we are having a lot of fun haha.
-                            Anywayyss, I want you to know that I love you more than anything in the world and I like you so much. You mean the world to me and I cant imagine life without you.
-                            This has honestly been the greatest year of my life (and hopefully yours) knowing that we will be together for the rest of our lives and that you are my fianceeee.
-                            Life with you is better than I could have ever imagined. You make life so fun, with all of the adventures that we go on and I enjoy every minute with you.
-                            We've had such a busy year this year but because it has all been with you it has been okay. :)
+                            i hope today is going pretty well, i knew it was initially supposed to rain this whole weekend but hopefully it hasn't and we have been
+                            living it up. i also hope paisu kitty is doing okay with Sharon…im sure she would do a great job taking care of our little baby. it's
+                            funny how this is the year we talked about not having kids and now we have one :) so happy to have her and you're such a great mom to
+                            her, she loves you soooo much, she's obsessed with you. anyways time to get to the fun part of the letter, i know i said i wasnt supposed
+                            to get you anything but i got some small ish things that i thought you might like… bad idea right?
                         </p>
-                        <a href="https://www.youtube.com/watch?v=gFITP2zSzT0">Okay now click here before continuing!</a>
-                        <br>
-                        <br>
-                        <p class="text-mainbody">
-                            Hehe, I hope you enjoyed that and watched the whole thing. 
-                        </p>
-                        <p class="text-mainbody">
-                            Ya know, while writing this letter I was looking at last years and I wrote "this is probably the last year that we'll be in our position that we are 
-                            now. Take our relationship to the next level... :) hehe. Maybe next year I might address you a lil differently in your birthday letter :)) mwahahaha"
-                            and look where we are now :D. Fianceeee. Anyways, I hope 27 is as good to you as 26 was! I can't wait to celebrate your birthday just us two, I have some
-                            pretty cool plans that I can't reveal right now but it should be a lot of fun ;)                        
-                        </p>
-                        <p class="text-mainbody">
-                            Again cheers to you bub, you are the bestest, cutest, funniest, and hottest person that I know and cant wait for you to keep being you and my fianceeee!!!
-                        </p>
-                        <p class="text-mainbody">
-                            Signing off,
-                        </p>
-                        <p class="text-mainbody">
-                            The GBOAT (The Greatest Boyfriend of All Time) Benju <br>
-                        </p>
-                        <p class="text-mainbody">
-                            P.S. After you come read this, at some point come talk to me about this letter, it took a lot out of me for that one part lol<br>
-                        </p>
+
+                        <!-- ================================================================
+                             Birthday Gift Verification Sequence
+                             The gifts stay hidden behind this verification flow until all
+                             three steps are completed. See script at bottom of page for logic.
+                             ================================================================ -->
+                        <div id="giftGateWrapper">
+
+                            <!-- Verification Screen -->
+                            <div id="verificationScreen" class="verification-screen">
+                                <h2 class="verification-title">🔒 Birthday Gift Verification</h2>
+                                <p class="verification-subtitle">Access to Birthday Gifts requires identity verification.</p>
+
+                                <!-- Step 1: Catch Paisu -->
+                                <div id="step1" class="verification-step">
+                                    <p class="step-label">Step 1 of 3</p>
+                                    <h3 class="step-heading">Catch Paisu 10 times.</h3>
+                                    <div id="paisuGameArea" class="paisu-game-area">
+                                        <img id="paisuImg" src="assets/img/paisu.png" alt="Catch Paisu" class="paisu-img" />
+                                    </div>
+                                    <p id="paisuCounter" class="step-counter">0 / 10</p>
+                                    <p id="step1Success" class="step-success-msg" hidden>🐾 Cat Mom Verified</p>
+                                </div>
+
+                                <!-- Step 2: Finish the Lyrics -->
+                                <div id="step2" class="verification-step" hidden>
+                                    <p class="step-label">Step 2 of 3</p>
+                                    <h3 id="lyricQuestion" class="step-heading">____ had a dream</h3>
+                                    <input type="text" id="lyricInput" class="lyric-input" autocomplete="off" placeholder="Fill in the blank..." />
+                                    <br />
+                                    <button id="lyricSubmitBtn" class="btn btn-primary lyric-submit-btn" type="button">Submit</button>
+                                    <div id="lyricCheck" class="lyric-check-mark" hidden>✔</div>
+                                </div>
+
+                                <!-- Step 3: Relationship Timeline -->
+                                <div id="step3" class="verification-step" hidden>
+                                    <p class="step-label">Step 3 of 3</p>
+                                    <h3 class="step-heading">Put our relationship timeline in order</h3>
+                                    <p class="step-instructions">(Drag the cards into the correct order, earliest first)</p>
+                                    <div id="timelineList" class="timeline-list"></div>
+                                    <p id="step3Success" class="step-success-msg" hidden>💍 Relationship Verified</p>
+                                </div>
+
+                                <!-- Access Granted -->
+                                <div id="accessGrantedScreen" class="access-granted-screen" hidden>
+                                    <p id="verifyingText" class="verifying-text">Verifying...</p>
+                                    <ul id="checklist" class="checklist">
+                                        <li id="check1" class="checklist-item">✓ Cat Mom</li>
+                                        <li id="check2" class="checklist-item">✓ Lyrical Genius</li>
+                                        <li id="check3" class="checklist-item">✓ Fiancée</li>
+                                    </ul>
+                                    <p id="accessGrantedText" class="access-granted-text" hidden>ACCESS GRANTED</p>
+                                </div>
+                            </div>
+
+                            <!-- Gift Content (revealed only after verification passes) -->
+                            <div id="giftContent" class="gift-content" hidden>
+                                <p class="text-mainbody">
+                                    well…first is a pottery class!! i know you wanted to do pottery (or maybe just paint pottery) so i thought it would be a fun
+                                    thing to do together. the second thing is 2 tickets to the olivia rodrigo concert in october in dc!! did you notice all the
+                                    references throughout the letter lol. hopefully we are here and id definitely come with you but also if you wanted to bring a
+                                    friend who likes olivia that would also be cool w me and prob more enjoyable. anyways love u, umma hope you have a special bday
+                                    and until next year!! where i can open w calling you ma wife
+                                </p>
+
+                                <div class="presents-row">
+                                    <div class="present" id="present1" data-gift="pottery">
+                                        <div class="present-box">
+                                            <div class="present-lid"></div>
+                                            <div class="present-ribbon-v"></div>
+                                            <div class="present-ribbon-h"></div>
+                                        </div>
+                                        <p class="present-label">Present 1</p>
+                                    </div>
+                                    <div class="present" id="present2" data-gift="concert">
+                                        <div class="present-box">
+                                            <div class="present-lid"></div>
+                                            <div class="present-ribbon-v"></div>
+                                            <div class="present-ribbon-h"></div>
+                                        </div>
+                                        <p class="present-label">Present 2</p>
+                                    </div>
+                                </div>
+
+                                <div class="gift-reveal-cards">
+                                    <div id="giftCard1" class="gift-reveal-card" hidden>
+                                        <h4>🏺 Pottery Class!</h4>
+                                        <p>Let's get messy with clay together 🤍</p>
+                                    </div>
+                                    <div id="giftCard2" class="gift-reveal-card" hidden>
+                                        <h4>🎤 Olivia Rodrigo — October, DC</h4>
+                                        <p>2 tickets. Bring me, or bring a friend who loves her just as much 😉</p>
+                                    </div>
+                                </div>
+
+                                <div id="confettiContainer" class="confetti-container"></div>
+                            </div>
+                        </div>
+                        <!-- ============== End Birthday Gift Verification Sequence ============== -->
+
                     </div>
                 </div>
-                <img class="img-fluid" src="assets/img/proposalpicture.jpg" alt="..." width="750px" height="1000px"/>
+                <img class="img-fluid" src="assets/img/meeganpaisu.jpg" alt="..." width="750px" height="1000px"/>
+                <img class="img-fluid" src="assets/img/meeganfamily.jpg" alt="..." width="750px" height="1000px"/>
             </div>
         </section>
         <!-- Projects-->
@@ -171,7 +251,7 @@
                     </div>
                 </div>
                 <!-- Year Six Row-->
-                <div class="row gx-0 justify-content-center">
+                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
                     <div class="col-lg-6"><img class="img-fluid" src="assets/img/meeganbenjualexandria.jpg" alt="..." /></div>
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
@@ -185,11 +265,26 @@
                         </div>
                     </div>
                 </div>
+                <!-- Year Seven Row-->
+                <div class="row gx-0 justify-content-center">
+                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/bg-24.jpg" alt="..." /></div>
+                    <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                    <h4 class="text-white"><a href="y7.html">Year Seven (27)</a></h4>
+                                    <p class="mb-0 text-white-50">Fianceeee!! Engaged and 27.</p>
+                                    <hr class="d-none d-lg-block mb-0 me-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Meegans Website 2021</div></footer>
-        
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -199,5 +294,347 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+        <!-- ================================================================
+             Birthday Gift Verification Sequence — JavaScript
+             Organized into step-by-step functions. No external libraries.
+             ================================================================ -->
+        <script>
+            /* ============================================================
+               STEP 1: Catch Paisu
+               ============================================================ */
+            var paisuCatches = 0;
+            var PAISU_TARGET = 10;
+
+            var paisuImg = document.getElementById('paisuImg');
+            var paisuGameArea = document.getElementById('paisuGameArea');
+            var paisuCounter = document.getElementById('paisuCounter');
+            var step1Success = document.getElementById('step1Success');
+
+            // Moves Paisu to a random position within the bounded game area
+            function movePaisuToRandomPosition() {
+                var areaWidth = paisuGameArea.clientWidth;
+                var areaHeight = paisuGameArea.clientHeight;
+                var imgSize = 64; // matches .paisu-img width in CSS
+                var maxLeft = Math.max(areaWidth - imgSize, 0);
+                var maxTop = Math.max(areaHeight - imgSize, 0);
+                var randomLeft = Math.floor(Math.random() * maxLeft);
+                var randomTop = Math.floor(Math.random() * maxTop);
+                paisuImg.style.left = randomLeft + 'px';
+                paisuImg.style.top = randomTop + 'px';
+            }
+
+            // Handles a single catch: increments counter, pulses, moves, checks completion
+            function handlePaisuClick() {
+                paisuCatches++;
+                paisuCounter.textContent = paisuCatches + ' / ' + PAISU_TARGET;
+
+                // Restart the pulse animation on every click
+                paisuImg.classList.remove('pulse');
+                void paisuImg.offsetWidth; // force reflow so animation replays
+                paisuImg.classList.add('pulse');
+
+                if (paisuCatches >= PAISU_TARGET) {
+                    completeStep1();
+                } else {
+                    movePaisuToRandomPosition();
+                }
+            }
+
+            // Marks Step 1 complete and advances to Step 2
+            function completeStep1() {
+                paisuImg.removeEventListener('click', handlePaisuClick);
+                paisuImg.style.pointerEvents = 'none';
+                step1Success.hidden = false;
+                setTimeout(function () {
+                    document.getElementById('step1').hidden = true;
+                    document.getElementById('step2').hidden = false;
+                    initStep2();
+                }, 1200);
+            }
+
+            function initStep1() {
+                movePaisuToRandomPosition();
+                paisuImg.addEventListener('click', handlePaisuClick);
+            }
+
+            /* ============================================================
+               STEP 2: Finish the Lyrics
+               ============================================================ */
+            var lyricQuestions = [
+                { question: '____ had a dream', answer: 'meegan', acceptAny: false },
+                { question: '____ 4 u', answer: 'good', acceptAny: false },
+                { question: '____ hello, hello, hello, hello white american', answer: '', acceptAny: true }
+            ];
+            var currentLyricIndex = 0;
+
+            var lyricQuestionEl = document.getElementById('lyricQuestion');
+            var lyricInput = document.getElementById('lyricInput');
+            var lyricSubmitBtn = document.getElementById('lyricSubmitBtn');
+            var lyricCheck = document.getElementById('lyricCheck');
+
+            // Loads the current lyric question into the DOM
+            function loadLyricQuestion() {
+                var current = lyricQuestions[currentLyricIndex];
+                lyricQuestionEl.textContent = current.question;
+                lyricInput.value = '';
+                lyricInput.disabled = false;
+                lyricSubmitBtn.disabled = false;
+                lyricCheck.hidden = true;
+                lyricInput.focus();
+            }
+
+            // Validates the submitted answer (case-insensitive) and advances on success
+            function handleLyricSubmit() {
+                var current = lyricQuestions[currentLyricIndex];
+                var userAnswer = lyricInput.value.trim().toLowerCase();
+                var isCorrect = current.acceptAny ? userAnswer.length > 0 : userAnswer === current.answer;
+
+                if (!isCorrect) {
+                    lyricInput.focus();
+                    return;
+                }
+
+                // Show green check animation, then move to next question or finish
+                lyricInput.disabled = true;
+                lyricSubmitBtn.disabled = true;
+                lyricCheck.hidden = false;
+
+                setTimeout(function () {
+                    currentLyricIndex++;
+                    if (currentLyricIndex < lyricQuestions.length) {
+                        loadLyricQuestion();
+                    } else {
+                        completeStep2();
+                    }
+                }, 900);
+            }
+
+            // Marks Step 2 complete and advances to Step 3
+            function completeStep2() {
+                document.getElementById('step2').hidden = true;
+                document.getElementById('step3').hidden = false;
+                initStep3();
+            }
+
+            function initStep2() {
+                currentLyricIndex = 0;
+                loadLyricQuestion();
+                lyricSubmitBtn.addEventListener('click', handleLyricSubmit);
+                lyricInput.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') {
+                        handleLyricSubmit();
+                    }
+                });
+            }
+
+            /* ============================================================
+               STEP 3: Relationship Timeline (drag to reorder)
+               ============================================================ */
+            var timelineCorrectOrder = [
+                'First Date',
+                'First "I Love You"',
+                'Got Engaged',
+                'Got Paisu',
+                '8th Birthday Together'
+            ];
+            var timelineList = document.getElementById('timelineList');
+            var step3Success = document.getElementById('step3Success');
+            var draggedCard = null;
+
+            // Fisher-Yates shuffle
+            function shuffleArray(array) {
+                var arr = array.slice();
+                for (var i = arr.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+                return arr;
+            }
+
+            // Builds the scrambled draggable timeline cards
+            function renderTimelineCards() {
+                var scrambled = shuffleArray(timelineCorrectOrder);
+                // Guarantee it's actually scrambled (not already in correct order)
+                var attempts = 0;
+                while (scrambled.join('|') === timelineCorrectOrder.join('|') && attempts < 10) {
+                    scrambled = shuffleArray(timelineCorrectOrder);
+                    attempts++;
+                }
+
+                timelineList.innerHTML = '';
+                scrambled.forEach(function (label) {
+                    var card = document.createElement('div');
+                    card.className = 'timeline-card';
+                    card.textContent = label;
+                    card.setAttribute('data-label', label);
+                    card.addEventListener('pointerdown', handleCardPointerDown);
+                    timelineList.appendChild(card);
+                });
+            }
+
+            // Begins a drag on pointerdown
+            function handleCardPointerDown(e) {
+                draggedCard = e.currentTarget;
+                draggedCard.classList.add('dragging');
+                draggedCard.setPointerCapture(e.pointerId);
+                draggedCard.addEventListener('pointermove', handleCardPointerMove);
+                draggedCard.addEventListener('pointerup', handleCardPointerUp);
+            }
+
+            // Reorders cards live as the pointer moves
+            function handleCardPointerMove(e) {
+                if (!draggedCard) return;
+                var afterCard = getCardAfterPointer(e.clientY);
+                if (afterCard == null) {
+                    timelineList.appendChild(draggedCard);
+                } else if (afterCard !== draggedCard) {
+                    timelineList.insertBefore(draggedCard, afterCard);
+                }
+            }
+
+            // Ends the drag and checks the resulting order
+            function handleCardPointerUp() {
+                if (!draggedCard) return;
+                draggedCard.classList.remove('dragging');
+                draggedCard.removeEventListener('pointermove', handleCardPointerMove);
+                draggedCard.removeEventListener('pointerup', handleCardPointerUp);
+                draggedCard = null;
+                checkTimelineOrder();
+            }
+
+            // Finds the card the pointer is currently closest to (for insertion point)
+            function getCardAfterPointer(y) {
+                var cards = Array.prototype.slice.call(
+                    timelineList.querySelectorAll('.timeline-card:not(.dragging)')
+                );
+                var closest = { offset: Number.NEGATIVE_INFINITY, element: null };
+                cards.forEach(function (card) {
+                    var box = card.getBoundingClientRect();
+                    var offset = y - box.top - box.height / 2;
+                    if (offset < 0 && offset > closest.offset) {
+                        closest = { offset: offset, element: card };
+                    }
+                });
+                return closest.element;
+            }
+
+            // Compares current DOM order to the correct chronological order
+            function checkTimelineOrder() {
+                var currentOrder = Array.prototype.map.call(
+                    timelineList.querySelectorAll('.timeline-card'),
+                    function (card) { return card.getAttribute('data-label'); }
+                );
+                if (currentOrder.join('|') === timelineCorrectOrder.join('|')) {
+                    completeStep3();
+                }
+            }
+
+            // Marks Step 3 complete and kicks off the access granted sequence
+            function completeStep3() {
+                step3Success.hidden = false;
+                timelineList.querySelectorAll('.timeline-card').forEach(function (card) {
+                    card.classList.add('correct-slot');
+                    card.style.pointerEvents = 'none';
+                });
+                setTimeout(function () {
+                    document.getElementById('step3').hidden = true;
+                    document.getElementById('accessGrantedScreen').hidden = false;
+                    runAccessGrantedSequence();
+                }, 1200);
+            }
+
+            function initStep3() {
+                renderTimelineCards();
+            }
+
+            /* ============================================================
+               ACCESS GRANTED sequence
+               ============================================================ */
+            function runAccessGrantedSequence() {
+                var checkIds = ['check1', 'check2', 'check3'];
+                checkIds.forEach(function (id, index) {
+                    setTimeout(function () {
+                        document.getElementById(id).classList.add('revealed');
+                    }, 500 + index * 500);
+                });
+
+                setTimeout(function () {
+                    document.getElementById('accessGrantedText').hidden = false;
+                }, 500 + checkIds.length * 500 + 300);
+
+                setTimeout(function () {
+                    revealGiftSection();
+                }, 500 + checkIds.length * 500 + 1600);
+            }
+
+            // Fades out the verification screen and fades in the gift content
+            function revealGiftSection() {
+                var verificationScreen = document.getElementById('verificationScreen');
+                verificationScreen.classList.add('fade-out');
+                setTimeout(function () {
+                    verificationScreen.hidden = true;
+                    document.getElementById('giftContent').hidden = false;
+                }, 600);
+            }
+
+            /* ============================================================
+               GIFT REVEAL: wrapped presents + confetti
+               ============================================================ */
+            function initGiftReveal() {
+                document.getElementById('present1').addEventListener('click', function () {
+                    openPresent('present1', 'giftCard1');
+                });
+                document.getElementById('present2').addEventListener('click', function () {
+                    openPresent('present2', 'giftCard2');
+                });
+            }
+
+            // Opens a present box and reveals its matching gift card
+            function openPresent(presentId, giftCardId) {
+                var presentEl = document.getElementById(presentId);
+                if (presentEl.classList.contains('opened')) return; // already opened
+                presentEl.classList.add('opened');
+
+                setTimeout(function () {
+                    document.getElementById(giftCardId).hidden = false;
+                }, 400);
+
+                triggerConfetti();
+            }
+
+            // Creates a small burst of vanilla-CSS confetti pieces
+            function triggerConfetti() {
+                var container = document.getElementById('confettiContainer');
+                var colors = ['#FFD700', '#64a19d', '#89CFF0', '#50817e', '#f0d892'];
+                for (var i = 0; i < 32; i++) {
+                    var piece = document.createElement('div');
+                    piece.className = 'confetti-piece';
+                    piece.style.left = Math.random() * 100 + '%';
+                    piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    piece.style.animationDuration = (0.9 + Math.random() * 0.8) + 's';
+                    piece.style.animationDelay = (Math.random() * 0.3) + 's';
+                    container.appendChild(piece);
+                    // Clean up each piece after its animation finishes
+                    (function (el) {
+                        el.addEventListener('animationend', function () {
+                            el.remove();
+                        });
+                    })(piece);
+                }
+            }
+
+            /* ============================================================
+               INIT
+               ============================================================ */
+            function initGiftVerification() {
+                initStep1();
+                initGiftReveal();
+            }
+
+            initGiftVerification();
+        </script>
     </body>
 </html>
