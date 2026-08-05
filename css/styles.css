@@ -11802,6 +11802,8 @@ body {
   -webkit-user-drag: none;
   top: 20px;
   left: 20px;
+  /* smooths out her on-her-own wandering between random spots */
+  transition: top 0.35s ease, left 0.35s ease;
 }
 
 .paisu-img.pulse {
@@ -11998,6 +12000,37 @@ body {
 
 .present.opened .present-box {
   transform: scale(1.08);
+}
+
+/* Present 2 stays locked until Present 1 has been opened */
+.present.locked .present-box {
+  opacity: 0.45;
+  filter: grayscale(40%);
+  cursor: not-allowed;
+}
+
+.present-lock-hint {
+  display: none;
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #a15c64;
+}
+
+.present.locked .present-lock-hint {
+  display: block;
+}
+
+.present.shake {
+  animation: presentShake 0.4s ease;
+}
+
+@keyframes presentShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
 }
 
 .present.opened .present-lid {

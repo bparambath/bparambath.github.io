@@ -122,12 +122,22 @@
 
                             <!-- Gift Content (revealed only after verification passes) -->
                             <div id="giftContent" class="gift-content" hidden>
-                                <p class="text-mainbody">
+                                <p id="giftIntroText" class="text-mainbody">
+                                    open the presents below to find out what's inside… but Present 1 first 😉
+                                </p>
+
+                                <!-- Letter text is revealed piece by piece, only as each present is opened -->
+                                <p id="giftText1" class="text-mainbody" hidden>
                                     well…first is a pottery class!! i know you wanted to do pottery (or maybe just paint pottery) so i thought it would be a fun
-                                    thing to do together. the second thing is 2 tickets to the olivia rodrigo concert in october in dc!! did you notice all the
+                                    thing to do together.
+                                </p>
+                                <p id="giftText2" class="text-mainbody" hidden>
+                                    the second thing is 2 tickets to the olivia rodrigo concert in october in dc!! did you notice all the
                                     references throughout the letter lol. hopefully we are here and id definitely come with you but also if you wanted to bring a
-                                    friend who likes olivia that would also be cool w me and prob more enjoyable. anyways love u, umma hope you have a special bday
-                                    and until next year!! where i can open w calling you ma wife
+                                    friend who likes olivia that would also be cool w me and prob more enjoyable.
+                                </p>
+                                <p id="giftText3" class="text-mainbody" hidden>
+                                    anyways love u, umma hope you have a special bday and until next year!! where i can open w calling you ma wife
                                 </p>
 
                                 <div class="presents-row">
@@ -139,13 +149,14 @@
                                         </div>
                                         <p class="present-label">Present 1</p>
                                     </div>
-                                    <div class="present" id="present2" data-gift="concert">
+                                    <div class="present locked" id="present2" data-gift="concert">
                                         <div class="present-box">
                                             <div class="present-lid"></div>
                                             <div class="present-ribbon-v"></div>
                                             <div class="present-ribbon-h"></div>
                                         </div>
                                         <p class="present-label">Present 2</p>
+                                        <p class="present-lock-hint">Open Present 1 first!</p>
                                     </div>
                                 </div>
 
@@ -306,6 +317,13 @@
             var paisuCatches = 0;
             var PAISU_TARGET = 10;
 
+            // Paisu wanders on her own via this interval; the delay shrinks (she gets
+            // faster) after every successful catch.
+            var paisuWanderIntervalId = null;
+            var paisuWanderDelay = 1400; // ms between random moves, starting speed
+            var PAISU_MIN_DELAY = 350; // fastest she's allowed to get
+            var PAISU_DELAY_STEP = 110; // how much faster she gets per catch
+
             var paisuImg = document.getElementById('paisuImg');
             var paisuGameArea = document.getElementById('paisuGameArea');
             var paisuCounter = document.getElementById('paisuCounter');
@@ -324,7 +342,13 @@
                 paisuImg.style.top = randomTop + 'px';
             }
 
-            // Handles a single catch: increments counter, pulses, moves, checks completion
+            // (Re)starts Paisu's own wandering loop at the current speed
+            function startPaisuWandering() {
+                clearInterval(paisuWanderIntervalId);
+                paisuWanderIntervalId = setInterval(movePaisuToRandomPosition, paisuWanderDelay);
+            }
+
+            // Handles a single catch: increments counter, pulses, speeds her up, checks completion
             function handlePaisuClick() {
                 paisuCatches++;
                 paisuCounter.textContent = paisuCatches + ' / ' + PAISU_TARGET;
@@ -336,13 +360,18 @@
 
                 if (paisuCatches >= PAISU_TARGET) {
                     completeStep1();
-                } else {
-                    movePaisuToRandomPosition();
+                    return;
                 }
+
+                // Jump to a new spot immediately, then get a little faster at wandering
+                movePaisuToRandomPosition();
+                paisuWanderDelay = Math.max(PAISU_MIN_DELAY, paisuWanderDelay - PAISU_DELAY_STEP);
+                startPaisuWandering();
             }
 
             // Marks Step 1 complete and advances to Step 2
             function completeStep1() {
+                clearInterval(paisuWanderIntervalId);
                 paisuImg.removeEventListener('click', handlePaisuClick);
                 paisuImg.style.pointerEvents = 'none';
                 step1Success.hidden = false;
@@ -355,6 +384,7 @@
 
             function initStep1() {
                 movePaisuToRandomPosition();
+                startPaisuWandering();
                 paisuImg.addEventListener('click', handlePaisuClick);
             }
 
@@ -582,27 +612,61 @@
 
             /* ============================================================
                GIFT REVEAL: wrapped presents + confetti
+               Present 2 stays locked until Present 1 has been opened, and the
+               matching letter paragraph for each gift only appears once that
+               gift's present has been clicked.
                ============================================================ */
+            var present1Opened = false;
+            var present2Opened = false;
+
             function initGiftReveal() {
                 document.getElementById('present1').addEventListener('click', function () {
-                    openPresent('present1', 'giftCard1');
+                    openPresent('present1', 'giftCard1', 'giftText1');
                 });
                 document.getElementById('present2').addEventListener('click', function () {
-                    openPresent('present2', 'giftCard2');
+                    var present2El = document.getElementById('present2');
+                    if (present2El.classList.contains('locked')) {
+                        shakeLockedPresent(present2El);
+                        return;
+                    }
+                    openPresent('present2', 'giftCard2', 'giftText2');
                 });
             }
 
-            // Opens a present box and reveals its matching gift card
-            function openPresent(presentId, giftCardId) {
+            // Gives a quick shake + hint when Present 2 is clicked before Present 1
+            function shakeLockedPresent(presentEl) {
+                presentEl.classList.remove('shake');
+                void presentEl.offsetWidth; // force reflow so animation replays
+                presentEl.classList.add('shake');
+            }
+
+            // Opens a present box, reveals its gift card, and reveals its letter text
+            function openPresent(presentId, giftCardId, giftTextId) {
                 var presentEl = document.getElementById(presentId);
                 if (presentEl.classList.contains('opened')) return; // already opened
                 presentEl.classList.add('opened');
 
                 setTimeout(function () {
                     document.getElementById(giftCardId).hidden = false;
+                    document.getElementById(giftTextId).hidden = false;
                 }, 400);
 
                 triggerConfetti();
+
+                if (presentId === 'present1') {
+                    present1Opened = true;
+                    // Unlock Present 2 now that Present 1 has been opened
+                    document.getElementById('present2').classList.remove('locked');
+                } else if (presentId === 'present2') {
+                    present2Opened = true;
+                }
+
+                // Once both gifts have been opened, reveal the closing sign-off text
+                if (present1Opened && present2Opened) {
+                    setTimeout(function () {
+                        document.getElementById('giftText3').hidden = false;
+                    }, 900);
+                }
             }
 
             // Creates a small burst of vanilla-CSS confetti pieces
