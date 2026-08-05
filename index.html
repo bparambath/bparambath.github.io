@@ -133,8 +133,8 @@
                                 </p>
                                 <p id="giftText2" class="text-mainbody" hidden>
                                     the second thing is 2 tickets to the olivia rodrigo concert in october in dc!! did you notice all the
-                                    references throughout the letter lol. hopefully we are in dc at that time and ill come with you if you'd like but also if you wanted to bring a
-                                    friend who likes olivia that would also be cool w me and maybe more enjoyable.
+                                    references throughout the letter lol. hopefully we are here and id definitely come with you but also if you wanted to bring a
+                                    friend who likes olivia that would also be cool w me and prob more enjoyable.
                                 </p>
                                 <p id="giftText3" class="text-mainbody" hidden>
                                     anyways love u, umma hope you have a special bday and until next year!! where i can open w calling you ma wife
@@ -178,8 +178,8 @@
 
                     </div>
                 </div>
-                <img class="img-fluid" src="assets/img/meeganpaisu.JPG" alt="..." width="750px" height="1000px"/>
-                <img class="img-fluid" src="assets/img/meeganfamily.JPG" alt="..." width="750px" height="1000px"/>
+                <img class="img-fluid" src="assets/img/meeganpaisu.jpg" alt="..." width="750px" height="1000px"/>
+                <img class="img-fluid" src="assets/img/meeganfamily.jpg" alt="..." width="750px" height="1000px"/>
             </div>
         </section>
         <!-- Projects-->
@@ -324,20 +324,35 @@
             var PAISU_MIN_DELAY = 350; // fastest she's allowed to get
             var PAISU_DELAY_STEP = 110; // how much faster she gets per catch
 
+            // Prevents rapid spam-clicking from counting as multiple catches
+            var paisuClickLocked = false;
+            var PAISU_CLICK_LOCKOUT_MS = 500;
+
             var paisuImg = document.getElementById('paisuImg');
             var paisuGameArea = document.getElementById('paisuGameArea');
             var paisuCounter = document.getElementById('paisuCounter');
             var step1Success = document.getElementById('step1Success');
 
-            // Moves Paisu to a random position within the bounded game area
+            // Returns a random value in [0, range] biased toward the two extremes (0 and
+            // range) rather than the middle, so Paisu favors hanging out near the edges.
+            function getEdgeBiasedRandom(range) {
+                var t = Math.random();
+                var biased = t < 0.5
+                    ? 0.5 * Math.pow(t * 2, 3)
+                    : 1 - 0.5 * Math.pow((1 - t) * 2, 3);
+                return biased * range;
+            }
+
+            // Moves Paisu to a random position within the bounded game area,
+            // favoring positions near the edges/corners over the center
             function movePaisuToRandomPosition() {
                 var areaWidth = paisuGameArea.clientWidth;
                 var areaHeight = paisuGameArea.clientHeight;
                 var imgSize = 64; // matches .paisu-img width in CSS
                 var maxLeft = Math.max(areaWidth - imgSize, 0);
                 var maxTop = Math.max(areaHeight - imgSize, 0);
-                var randomLeft = Math.floor(Math.random() * maxLeft);
-                var randomTop = Math.floor(Math.random() * maxTop);
+                var randomLeft = Math.floor(getEdgeBiasedRandom(maxLeft));
+                var randomTop = Math.floor(getEdgeBiasedRandom(maxTop));
                 paisuImg.style.left = randomLeft + 'px';
                 paisuImg.style.top = randomTop + 'px';
             }
@@ -350,6 +365,12 @@
 
             // Handles a single catch: increments counter, pulses, speeds her up, checks completion
             function handlePaisuClick() {
+                if (paisuClickLocked) return; // ignore spam-clicks during lockout
+                paisuClickLocked = true;
+                setTimeout(function () {
+                    paisuClickLocked = false;
+                }, PAISU_CLICK_LOCKOUT_MS);
+
                 paisuCatches++;
                 paisuCounter.textContent = paisuCatches + ' / ' + PAISU_TARGET;
 
@@ -394,7 +415,7 @@
             var lyricQuestions = [
                 { question: '____ had a dream', answer: 'meegan', acceptAny: false },
                 { question: '____ 4 u', answer: 'good', acceptAny: false },
-                { question: '____, ____ I GOT ____ ....hello, hello, hello, hello white america', answer: 'pachameen', acceptAny: false }
+                { question: '____ hello, hello, hello, hello white american', answer: '', acceptAny: true }
             ];
             var currentLyricIndex = 0;
 
