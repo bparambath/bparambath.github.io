@@ -530,8 +530,8 @@
     function isLocked(dayOffset) {
       const today = todayOffset();
       if (dayOffset > today) return true;
-      const unlockUntil = dayOffset + 2;
-      return today >= unlockUntil || dayOffset < 0;
+      if (dayOffset < 0) return true;
+      return false; // past days are always editable
     }
 
     function dayKey(offset) { return `day_${offset}`; }
