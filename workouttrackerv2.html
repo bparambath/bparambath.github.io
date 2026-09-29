@@ -803,16 +803,17 @@ function renderCards() {
     restBtn.className = 'rest-btn' + (isRest ? ' used' : '');
     restBtn.style.borderColor = person.color;
     restBtn.style.color = person.color;
-    restBtn.textContent = isRest ? '🌙 Rest Day' : '🌙 Rest';
+    restBtn.textContent = isRest ? '🌙 Rest Day ✓' : '🌙 Rest';
     if (!canRest && !isRest) {
       restBtn.disabled = true;
       restBtn.style.opacity = '0.35';
       restBtn.style.cursor = 'default';
     }
-    if (isMe && !locked && !isRest && canRest) {
+    if (isMe && !locked && (isRest || canRest)) {
       restBtn.dataset.action = 'rest';
       restBtn.dataset.person = person.id;
       restBtn.dataset.off    = off;
+      restBtn.dataset.current = isRest ? 'true' : 'false';
     }
 
     header.appendChild(headerLeft);
@@ -1074,7 +1075,8 @@ document.addEventListener('click', async e => {
   }
   if (action === 'rest') {
     if (!currentUser || target.dataset.person !== currentUser) return;
-    await saveRestDay(currentUser, parseInt(target.dataset.off), true);
+    const newVal = target.dataset.current !== 'true';
+    await saveRestDay(currentUser, parseInt(target.dataset.off), newVal);
     return;
   }
 });
